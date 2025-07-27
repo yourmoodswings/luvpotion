@@ -416,18 +416,29 @@ const HeadsOfState = () => {
           <img
             src="/assets/political-pen.jpg"
             alt="Symbolic Artifact"
-            className="w-[180px] md:w-[400px] mb-10"
+            className="w-[700px] md:w-[400px] mb-10"
           />
-          <p className="text-center text-sm italic text-gray-600 mb-8">
-            Symbolic Artifact
-          </p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-4xl text-lg md:text-xl leading-relaxed">
             <p className="text-justify">
               <span className="text-[3.8rem] md:text-[5rem] text-[#8B6C2D] font-bold float-left leading-none pr-4">W</span>
-              hat happens when history is retold with a smirk? Heads of State fuses satire with fine art...
-            </p>
+              hat happens when history is retold with a smirk? Heads of State fuses satire with fine art, exploring the untold stories and pivotal moments in Nigeria’s political history. From the mysterious final moments of MKO Abiola to Dele Giwa’s shocking assassination, and even the high-stakes political manoeuvring that shaped Nigeria’s democracy, each piece blends humour, symbolism, and brutal honesty.
+<br /><span className="block mt-2" />This isn’t just art—it’s a visual reckoning. A mirror to power. A satire of history.
+Beyond the Canvas: Art You Can Hold, Wear, and Collect
+The Heads of State experience extends beyond the digital realm, bringing history into tangible forms: </p>
             <p className="text-justify">
-              Each Heads of State exhibition will feature a live auction...
+            Each Heads of State exhibition will feature a live auction, 
+            where collectors and art enthusiasts can own exclusive pieces from the collection. 
+            Every artwork is a conversation—about where we’ve been, 
+            where we are, and where we’re headed.
+            <br /><span className='block mt-2' />
+
+3D-printed life sculptures as limited-edition collectibles
+<br /><span className='block mt-2' />
+Neck pendants, fashion prints, and emblems, designed for those who want to carry a piece of history with them
+<br /><span className='block mt-2' />
+The unveiling of the custom-designed Nigerian Presidential Truck, a military-inspired masterpiece by LUVPOTION
+
+
             </p>
           </div>
         </section>
