@@ -3,100 +3,125 @@
 @tailwind utilities;
 
 /* Base document styling */
+
 html,
 body,
 #root {
-  height: 100%;
-  width: 100%;
-  margin: 0;
-  padding: 0;
-  overscroll-behavior: none;
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    overscroll-behavior: none;
 }
+
 
 /* Scroll container setup */
+
 .scroll-container {
-  height: 100vh;
-  width: 100vw;
-  overflow-y: auto;
-  scroll-snap-type: y mandatory;
-  scroll-behavior: smooth;
-  -webkit-overflow-scrolling: touch;
-  background-color: theme('colors.black');
-  background-image: url('/assets/museum_home_texture.jpg');
-  background-repeat: repeat;
-  background-size: cover;
+    height: 100vh;
+    width: 100vw;
+    overflow-y: auto;
+    scroll-snap-type: y mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
 }
+
 
 /* Section styling */
+
 .snap-section {
-  height: 100vh;
-  width: 100vw;
-  scroll-snap-align: start;
-  position: relative;
+    height: 100vh;
+    width: 100vw;
+    scroll-snap-align: start;
+    position: relative;
 }
 
-/* Portrait image adjustments */
-.portrait-container {
-  width: 80%;
-  max-width: 600px;
-  height: auto;
-  aspect-ratio: 4/5;
-}
 
-.portrait-image {
-  width: 100%;
-  height: auto;
-  max-height: 500px;
-  object-fit: cover;
-  border-radius: 0.5rem;
-  border-width: 2px;
-  border-color: theme('colors.neutral.800');
-  box-shadow: theme('boxShadow.2xl');
-}
+/* Scrollbar hiding - cross-browser solution */
 
-/* Scrollbar hiding */
 .scroll-container::-webkit-scrollbar {
-  display: none;
-  width: 0;
-  height: 0;
-  background: transparent;
+    display: none;
+    width: 0;
+    height: 0;
+    background: transparent;
 }
 
 .scroll-container {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
 }
+
 
 /* Mobile viewport fixes */
+
 @media (max-width: 768px) {
-  .snap-section {
-    height: 100dvh;
-    min-height: -webkit-fill-available;
-  }
-  
-  .portrait-container {
-    width: 90%;
-    max-width: 400px;
-  }
-  
-  .portrait-image {
-    max-height: 400px;
-  }
+    .snap-section {
+        height: 100dvh;
+        min-height: -webkit-fill-available;
+    }
 }
+
 
 /* Noise background effect */
+
 .noise-bg::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image: url('https://grainy-gradients.vercel.app/noise.svg');
-  background-repeat: repeat;
-  opacity: 0.03;
-  pointer-events: none;
-  z-index: 0;
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url('https://grainy-gradients.vercel.app/noise.svg');
+    background-repeat: repeat;
+    opacity: 0.03;
+    pointer-events: none;
+    z-index: 0;
 }
 
-/* Background texture overlay */
+
+/* Reliable image fallback system */
+
+.reliable-image-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.reliable-image-fallback {
+    position: absolute;
+    inset: 0;
+    background-color: theme('colors.black');
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: theme('colors.white');
+    text-align: center;
+    padding: 1rem;
+}
+
+.reliable-image-fallback-initials {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    line-height: 1;
+}
+
+.reliable-image-fallback-name {
+    font-size: 0.875rem;
+    opacity: 0.8;
+    line-height: 1.25;
+}
+
+
+/* Image styling */
+
+.reliable-image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: opacity 0.3s ease;
+}
+
 .bg-texture-overlay {
   position: absolute;
   inset: 0;
@@ -107,52 +132,17 @@ body,
   mix-blend-mode: overlay;
 }
 
-/* Reliable image fallback system */
-.reliable-image-container {
-  position: relative;
-  width: 100%;
-  height: 100%;
+/* Additional utilities */
+
+.no-scroll {
+    overflow: hidden;
 }
 
-.reliable-image-fallback {
-  position: absolute;
-  inset: 0;
-  background-color: theme('colors.black');
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  color: theme('colors.white');
-  text-align: center;
-  padding: 1rem;
-}
-
-.reliable-image-fallback-initials {
-  font-size: 2.5rem;
-  font-weight: bold;
-  margin-bottom: 0.5rem;
-  line-height: 1;
-}
-
-.reliable-image-fallback-name {
-  font-size: 0.875rem;
-  opacity: 0.8;
-  line-height: 1.25;
-}
-
-/* Image styling */
-.reliable-image {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: opacity 0.3s ease;
-}
 
 /* Fix for iOS bounce */
+
 @supports (-webkit-touch-callout: none) {
-  .scroll-container {
-    height: -webkit-fill-available;
-  }
+    .scroll-container {
+        height: -webkit-fill-available;
+    }
 }
