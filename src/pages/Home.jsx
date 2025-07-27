@@ -19,7 +19,7 @@ const HomePage = () => {
   const solid = theme === "dark" ? "bg-[#181911]" : "bg-white";
 
   return (
-    <div className={`font-serif min-h-screen ${theme === 'dark' ? 'text-[#FBEEC1]' : 'text-black'}`}>
+    <div className={`font-serif min-h-screen overflow-x-hidden ${theme === 'dark' ? 'text-[#FBEEC1]' : 'text-black'}`}>
       {/* Toggle Button */}
       <div className="fixed top-4 right-4 z-50">
         <button
