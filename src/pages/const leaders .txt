@@ -1,0 +1,243 @@
+const leaders = [
+  {
+    name: "Abubakar Tafawa Balewa",
+    title: "Prime Minister of Nigeria",
+    term: "1960 – 1966",
+    image: "https://upload.wikimedia.org/wikipedia/commons/f/f4/Tafawa_Balewa.jpg",
+    portraitImage: "/assets/art/balewa-portrait.jpg",
+    highlights: [
+      "Nigeria's first and only Prime Minister",
+      "Led Nigeria through independence in 1960",
+      "Assassinated in the January 1966 coup"
+    ],
+    quote: "He spoke like scripture, but was buried like a rumor.",
+    magazineContent: {
+      artImage: "/assets/art/balewa-art.jpg",
+      narrative: `In the heart of a desert farm…symbol of dignity and humility…`
+    }
+  },
+  {
+    name: "Nnamdi Azikiwe",
+    title: "Governor‑General & Ceremonial President",
+    term: "1960 – 1966",
+    image: "https://upload.wikimedia.org/wikipedia/commons/f/f7/Nnamdi_Azikiwe_1963.jpg",
+    portraitImage: "/assets/art/azikiwe-portrait.jpg",
+    highlights: [
+      "Nigeria’s first Governor‑General and first President when republic formed",
+      "Symbolic head during Balewa’s premiership",
+      "Deposed in the 1966 coup"
+    ],
+    quote: "The eagle that soared in silence.",
+    magazineContent: {
+      artImage: "/assets/art/azikiwe-art.jpg",
+      narrative: `The scholar‑president stands with his glasses reflecting the fractured vision…`
+    }
+  },
+  {
+    name: "Johnson Aguiyi‑Ironsi",
+    title: "Military Head of State",
+    term: "Jan – July 1966",
+    image: "", portraitImage: "",
+    highlights: [
+      "First military ruler of Nigeria",
+      "Came to power after first coup",
+      "Assassinated in July 1966 counter‑coup"
+    ],
+    quote: "Silence before chaos.",
+    magazineContent: {
+      artImage: "/assets/art/ironsi-art.jpg",
+      narrative: `A general who inherited a fractured polity…a pause before the storm.`
+    }
+  },
+  {
+    name: "Yakubu Gowon",
+    title: "Military Head of State",
+    term: "1966 – 1975",
+    image: "", portraitImage: "",
+    highlights: [
+      "Longest‑serving military head of state (nearly 9 years)",
+      "Led during Nigerian Civil War",
+      "Deposed in July 1975 coup"
+    ],
+    quote: "A bridge between war and peace.",
+    magazineContent: {
+      artImage: "/assets/art/gowon-art.jpg",
+      narrative: `In the aftermath of civil conflict…trying to hold a nation together…`
+    }
+  },
+  {
+    name: "Murtala Muhammed",
+    title: "Military Head of State",
+    term: "1975 – 1976",
+    image: "", portraitImage: "",
+    highlights: [
+      "Radical reformer in short tenure",
+      "Initiated major administrative changes",
+      "Assassinated in office in 1976"
+    ],
+    quote: "Speed is integrity.",
+    magazineContent: {
+      artImage: "/assets/art/murtala-art.jpg",
+      narrative: `He came like a hurricane—a whirlwind of reform in a slow‑moving system…`
+    }
+  },
+  {
+    name: "Olusegun Obasanjo",
+    title: "Military Head of State / President",
+    term: "1976 – 1979 (military), 1999 – 2007 (civilian)",
+    image: "", portraitImage: "",
+    highlights: [
+      "Oversaw transition to Second Republic in 1979",
+      "Returned as democratically elected president in Fourth Republic",
+      "Served two civilian terms"
+    ],
+    quote: "Peace is better than war; let’s keep walking.",
+    magazineContent: {
+      artImage: "/assets/art/obasanjo-art.jpg",
+      narrative: `The general‑turned‑statesman…two eras bridged by a single personality…`
+    }
+  },
+  {
+    name: "Shehu Shagari",
+    title: "President of Nigeria",
+    term: "1979 – 1983",
+    image: "", portraitImage: "",
+    highlights: [
+      "First democratically elected president after military rule",
+      "Led Second Republic",
+      "Overthrown in 1983 coup"
+    ],
+    quote: "Soft power needs backbone.",
+    magazineContent: {
+      artImage: "/assets/art/shagari-art.jpg",
+      narrative: `An elder statesman in civilian garb struck by the weight of economic crisis…`
+    }
+  },
+  {
+    name: "Muhammadu Buhari",
+    title: "Military Head of State / President",
+    term: "1983 – 1985 (military), 2015 – 2023 (civilian)",
+    image: "", portraitImage: "",
+    highlights: [
+      "Led second major military coup in 1983",
+      "Served as democratically elected president decades later",
+      "Focused on anti‑corruption and security"
+    ],
+    quote: "Discipline conquers chaos.",
+    magazineContent: {
+      artImage: "/assets/art/buhari-art.jpg",
+      narrative: `The former general returned—from uniform to suit—still with a campaign against rot…`
+    }
+  },
+  {
+    name: "Ibrahim Babangida",
+    title: "Military Head of State",
+    term: "1985 – 1993",
+    image: "", portraitImage: "",
+    highlights: [
+      "Staged palace coup against Buhari",
+      "Introduced economic reforms (SAP)",
+      "Resigned after annulment of 1993 election"
+    ],
+    quote: "Power—and the unpredictable.",
+    magazineContent: {
+      artImage: "/assets/art/babangida-art.jpg",
+      narrative: `A military strongman whose most lasting act was to cancel a popular vote…`
+    }
+  },
+  {
+    name: "Ernest Shonekan",
+    title: "Interim President",
+    term: "Aug – Nov 1993",
+    image: "", portraitImage: "",
+    highlights: [
+      "Headed short-lived Interim National Government",
+      "Appointed after Babangida resigned",
+      "Deposed by Sani Abacha in November 1993"
+    ],
+    quote: "A caretaker in a storm.",
+    magazineContent: {
+      artImage: "/assets/art/shonekan-art.jpg",
+      narrative: `Installed to placate public outrage…he lasted only months before another takeover…`
+    }
+  },
+  {
+    name: "Sani Abacha",
+    title: "Military Head of State",
+    term: "1993 – 1998",
+    image: "", portraitImage: "",
+    highlights: [
+      "Ruled with an iron fist",
+      "Died in office in 1998",
+      "Human rights abuses and corruption"
+    ],
+    quote: "Fear was his currency.",
+    magazineContent: {
+      artImage: "/assets/art/abacha-art.jpg",
+      narrative: `He centralized power through fear—a black cloak over national ambition…`
+    }
+  },
+  {
+    name: "Abdulsalami Abubakar",
+    title: "Military Head of State",
+    term: "1998 – 1999",
+    image: "", portraitImage: "",
+    highlights: [
+      "Succeeded Abacha after his death",
+      "Transitioned Nigeria back to civilian rule in 1999"
+    ],
+    quote: "Exit with dignity.",
+    magazineContent: {
+      artImage: "/assets/art/abubakar-art.jpg",
+      narrative: `A transitional hand extended toward democracy after years in shadows…`
+    }
+  },
+  {
+    name: "Umaru Musa Yar’Adua",
+    title: "President of Nigeria",
+    term: "2007 – 2010",
+    image: "", portraitImage: "",
+    highlights: [
+      "Elected president in Fourth Republic",
+      "Died in office in 2010",
+      "Advocated rule‑of‑law and anti‑corruption"
+    ],
+    quote: "Let justice be done.",
+    magazineContent: {
+      artImage: "/assets/art/yaradua-art.jpg",
+      narrative: `The quieter reformer, fighting illness while pushing for constitutional reforms…`
+    }
+  },
+  {
+    name: "Goodluck Jonathan",
+    title: "President of Nigeria",
+    term: "2010 – 2015",
+    image: "", portraitImage: "",
+    highlights: [
+      "Succeeded Yar’Adua as vice‑president",
+      "Elected in his own right in 2011",
+      "Lost 2015 election—first democratic transition to opposition party"
+    ],
+    quote: "Adversity defines leadership.",
+    magazineContent: {
+      artImage: "/assets/art/jonathan-art.jpg",
+      narrative: `From quiet deputy to headline-making transition…a presidency of crisis and calm…`
+    }
+  },
+  {
+    name: "Bola Ahmed Tinubu",
+    title: "President of Nigeria",
+    term: "2023 – present",
+    image: "", portraitImage: "",
+    highlights: [
+      "Elected in May 2023",
+      "Former governor of Lagos State and political strategist",
+      "Pioneered fuel subsidy removal and reform agendas"
+    ],
+    quote: "Vision without action is illusion.",
+    magazineContent: {
+      artImage: "/assets/art/tinubu-art.jpg",
+      narrative: `A political kingmaker who claimed the crown…leading reform amid expectation and resistance…`
+    }
+  }
+];
