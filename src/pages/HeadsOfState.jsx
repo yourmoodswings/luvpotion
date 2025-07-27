@@ -296,8 +296,7 @@ useEffect(() => {
 
   if (showIntro) {
     return (
-      <div className={`bg-black text-white relative w-full ${showIntro ? 'h-screen overflow-hidden' : ''}`}>
-
+   <div className={`bg-black text-white relative w-full ${showIntro ? 'h-screen overflow-hidden' : 'min-h-screen'}`}>
         <div className="absolute inset-0 z-0">
           <img
             src="/assets/hero-bg.jpg"
