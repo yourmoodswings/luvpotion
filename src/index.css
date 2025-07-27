@@ -2,56 +2,70 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Scroll snap fixes */
+/* Critical fixes */
+
+html,
+body,
+#root {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    overscroll-behavior: none;
+}
+
+
+/* Scroll container */
+
 .scroll-container {
-  scroll-snap-type: y mandatory;
-  scroll-behavior: smooth;
-  overscroll-behavior: none;
-  height: 100vh;
-  width: 100%;
+    height: 100vh;
+    width: 100vw;
+    overflow-y: scroll;
+    scroll-snap-type: y mandatory;
+    scroll-behavior: smooth;
 }
 
-.scroll-section {
-  scroll-snap-align: start;
-  min-height: 100vh;
-  width: 100%;
+
+/* Sections */
+
+.snap-section {
+    height: 100vh;
+    width: 100vw;
+    scroll-snap-align: start;
+    position: relative;
 }
 
-/* Mobile specific fixes */
-@media (max-width: 768px) {
-  .scroll-section {
-    height: 100dvh;
-  }
-}
 
 /* Hide scrollbar */
+
 .hide-scrollbar::-webkit-scrollbar {
-  display: none;
+    display: none;
 }
 
 .hide-scrollbar {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
 }
 
-/* Prevent scroll bouncing */
-html,
-body {
-  overscroll-behavior-y: none;
-  height: 100%;
-  width: 100%;
-  margin: 0;
-  padding: 0;
+
+/* Mobile fixes */
+
+@media (max-width: 768px) {
+    .snap-section {
+        height: 100dvh;
+    }
 }
 
-/* Noise background utility */
+
+/* Noise background */
+
 .noise-bg::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image: url('https://grainy-gradients.vercel.app/noise.svg');
-  opacity: 0.03;
-  pointer-events: none;
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url('https://grainy-gradients.vercel.app/noise.svg');
+    opacity: 0.03;
+    pointer-events: none;
 }
 
 /* Museum texture */
