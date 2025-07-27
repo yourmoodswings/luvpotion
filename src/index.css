@@ -122,14 +122,10 @@ body,
     transition: opacity 0.3s ease;
 }
 
-.bg-texture-overlay {
-  position: absolute;
-  inset: 0;
-  background-image: url('/assets/museum_home_texture.jpg');
-  background-repeat: repeat;
-  background-size: 300px;
-  opacity: 0.15;
-  mix-blend-mode: overlay;
+.bg-museum-texture {
+    background-image: url('/assets/museum_home_texture.jpg');
+    background-repeat: repeat;
+    background-size: cover;
 }
 
 /* Additional utilities */
