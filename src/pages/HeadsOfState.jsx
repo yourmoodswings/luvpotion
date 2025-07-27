@@ -1,6 +1,6 @@
+import React from 'react';
 import { useRef, useEffect, useState } from "react";
 import { motion } from "framer-motion";
-
 const leaders = [
   {
     name: "Abubakar Tafawa Balewa",
@@ -253,122 +253,117 @@ const HeadsOfState = () => {
   const audioRef = useRef(null);
   const scrollContainerRef = useRef(null);
 
- // 1️⃣ Track active section index (for highlighting, etc.)
-useEffect(() => {
-  const container = scrollContainerRef.current;
-  if (!container) return;
+  useEffect(() => {
+    const container = scrollContainerRef.current;
+    if (!container) return;
 
-  const handleScroll = () => {
-    const scrollPosition = container.scrollTop + window.innerHeight / 2;
-    const currentIndex = Math.floor(scrollPosition / window.innerHeight);
-    setActiveIndex(currentIndex);
-  };
+    const handleScroll = () => {
+      const containerHeight = container.clientHeight;
+      const scrollPosition = container.scrollTop + (containerHeight / 2);
+      const currentIndex = Math.floor(scrollPosition / containerHeight);
+      setActiveIndex(currentIndex);
+    };
 
-  container.addEventListener('scroll', handleScroll, { passive: true });
-  return () => container.removeEventListener('scroll', handleScroll);
-}, []);
+    container.addEventListener('scroll', handleScroll, { passive: true });
+    return () => container.removeEventListener('scroll', handleScroll);
+  }, []);
 
+  useEffect(() => {
+    const audioElement = audioRef.current;
+    if (!audioElement) return;
 
-// 3️⃣ Ambient audio control
-useEffect(() => {
-  const audioElement = audioRef.current;
-  if (!audioElement) return;
-
-  const handleAudio = async () => {
-    try {
-      if (audioEnabled) {
-        await audioElement.play();
-      } else {
-        audioElement.pause();
+    const handleAudio = async () => {
+      try {
+        if (audioEnabled) {
+          await audioElement.play();
+        } else {
+          audioElement.pause();
+        }
+      } catch (error) {
+        console.error("Audio error:", error);
       }
-    } catch (error) {
-      console.error("Audio error:", error);
-    }
-  };
+    };
 
-  handleAudio();
+    handleAudio();
 
-  return () => {
-    audioElement.pause();
-  };
-}, [audioEnabled]);
-
+    return () => {
+      audioElement.pause();
+    };
+  }, [audioEnabled]);
 
   if (showIntro) {
+    return (
+      <div className="bg-black text-white relative w-full h-screen overflow-hidden">
+        <div className="absolute inset-0 z-0">
+          <img
+            src="/assets/hero-bg.jpg"
+            alt="Heads of State Background"
+            className="w-full h-full object-cover"
+          />
+        </div>
+        <div className="absolute inset-0 bg-black bg-opacity-60 z-0" />
+        <div className="relative z-10 h-full flex flex-col justify-center items-center text-center px-6">
+          <motion.h1
+            className="text-4xl md:text-7xl font-bold mb-4"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1 }}
+          >
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-rose-400 to-amber-300">
+              The First Dynasty
+            </span>
+          </motion.h1>
+          <motion.p
+            className="text-sm md:text-lg max-w-xl text-center text-[#e3d7b2]"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.8, duration: 1 }}
+          >
+            A scroll-driven journey through the faces and fates of Nigeria's rulers — from Tafawa Balewa to Tinubu.
+          </motion.p>
+          <motion.button
+            className="mt-10 bg-gradient-to-r from-rose-500 to-amber-500 text-white px-8 py-3 rounded-full text-sm font-medium shadow-lg hover:shadow-xl transition-all"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={() => setShowIntro(false)}
+          >
+            Begin Timeline
+          </motion.button>
+          <motion.div 
+            className="absolute bottom-8 text-neutral-400 text-xs animate-bounce"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1.5 }}
+          >
+            Scroll to explore
+          </motion.div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="bg-black text-white relative w-full h-screen overflow-hidden">
-      <div className="absolute inset-0 z-0">
-        <img
-          src="/assets/hero-bg.jpg"
-          alt="Heads of State Background"
-          className="w-full h-full object-cover"
-        />
-      </div>
-      <div className="absolute inset-0 bg-black bg-opacity-60 z-0" />
-      <div className="relative z-10 h-full flex flex-col justify-center items-center text-center px-6">
-        <motion.h1
-          className="text-4xl md:text-7xl font-bold mb-4"
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1 }}
-        >
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-rose-400 to-amber-300">
-            The First Dynasty
-          </span>
-        </motion.h1>
-        <motion.p
-          className="text-sm md:text-lg max-w-xl text-center text-[#e3d7b2]"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.8, duration: 1 }}
-        >
-          A scroll-driven journey through the faces and fates of Nigeria's rulers — from Tafawa Balewa to Tinubu.
-        </motion.p>
-        <motion.button
-          className="mt-10 bg-gradient-to-r from-rose-500 to-amber-500 text-white px-8 py-3 rounded-full text-sm font-medium shadow-lg hover:shadow-xl transition-all"
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          onClick={() => setShowIntro(false)}
-        >
-          Begin Timeline
-        </motion.button>
-        <motion.div 
-          className="absolute bottom-8 text-neutral-400 text-xs animate-bounce"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.5 }}
-        >
-          Scroll to explore
-        </motion.div>
-      </div>
-    </div>
-  );
-}
+      <audio ref={audioRef} loop src="/audio/ambient.mp3" />
 
-return (
-  <div className="bg-black text-white relative w-full h-screen overflow-hidden">
-    <audio ref={audioRef} loop src="/audio/ambient.mp3" />
+      <button
+        onClick={() => setAudioEnabled((prev) => !prev)}
+        className="fixed top-4 right-4 z-50 bg-gradient-to-r from-rose-500 to-amber-500 text-white px-4 py-2 rounded-full text-sm shadow-lg hover:shadow-xl transition-all"
+        style={{ backdropFilter: 'blur(10px)' }}
+      >
+        {audioEnabled ? "🔇 Mute" : "🔊 Play Sound"}
+      </button>
 
-    <button
-      onClick={() => setAudioEnabled((prev) => !prev)}
-      className="fixed top-4 right-4 z-50 bg-gradient-to-r from-rose-500 to-amber-500 text-white px-4 py-2 rounded-full text-sm shadow-lg hover:shadow-xl transition-all"
-      style={{ backdropFilter: 'blur(10px)' }}
-    >
-      {audioEnabled ? "🔇 Mute" : "🔊 Play Sound"}
-    </button>
-
-    <div
-      ref={scrollContainerRef}
-      className="w-full h-full overflow-y-scroll snap-y snap-mandatory scroll-smooth hide-scrollbar no-scroll-bounce flex flex-col"
-      style={{
-        scrollSnapType: 'y mandatory',
-        WebkitOverflowScrolling: 'touch',
-        overscrollBehavior: 'none'
-      }}
-    >
-
+      <div
+        ref={scrollContainerRef}
+        className="w-full h-screen overflow-y-scroll snap-y snap-mandatory scroll-smooth"
+        style={{
+          scrollSnapType: 'y mandatory',
+          WebkitOverflowScrolling: 'touch',
+        }}
+      >
         {/* Political Pen Intro Section */}
-        <section className="h-screen snap-start flex-shrink-0 w-full bg-white text-gray-800 font-serif px-6 md:px-20 py-16 flex flex-col justify-center items-center">
+        <section className="h-screen w-full snap-start flex-shrink-0 bg-white text-gray-800 font-serif px-6 md:px-20 py-16 flex flex-col justify-center items-center">
           <img
             src="/assets/political-pen.jpg"
             alt="Symbolic Artifact"
@@ -390,12 +385,9 @@ return (
 
         {/* Leader Sections */}
         {leaders.map((leader, index) => (
-          <>
+          <React.Fragment key={index}>
             {/* Portrait + Key Facts */}
-            <section
-              key={`facts-${index}`}
-              className="h-screen snap-start flex-shrink-0 w-full flex relative overflow-hidden"
-            >
+            <section className="h-screen w-full snap-start flex relative overflow-hidden">
               <div className="absolute inset-0 bg-gradient-to-b from-black/80 to-black/30 z-0" />
               <div className="absolute inset-0 opacity-10" style={{ backgroundImage: "url('https://grainy-gradients.vercel.app/noise.svg')" }} />
               
@@ -466,11 +458,8 @@ return (
               </div>
             </section>
 
-            {/* Magazine Section (Always shown) */}
-            <section
-              key={`magazine-${index}`}
-              className="h-screen snap-start flex-shrink-0 w-full relative"
-            >
+            {/* Magazine Section */}
+            <section className="h-screen w-full snap-start relative">
               <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-10 z-0" />
               <div className="absolute inset-0 bg-gradient-to-b from-black/80 to-black/30 z-0" />
 
@@ -506,7 +495,7 @@ return (
                 </div>
               </div>
             </section>
-          </>
+          </React.Fragment>
         ))}
       </div>
     </div>
