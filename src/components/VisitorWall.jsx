@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { useTheme } from "@/context/ThemeContext";
 
 const visitors = [
   {
@@ -24,22 +25,41 @@ const visitors = [
 ];
 
 const VisitorWall = () => {
-  return (
-    <section className="font-serif px-6 md:px-12 py-20">
-      <div className="max-w-5xl mx-auto text-center">
-        <h2 className="text-3xl md:text-4xl font-bold mb-12">
-          Echoes from the Gallery
-        </h2>
+  const { theme } = useTheme();
+  const isDark = theme === "dark";
 
-        <div className="grid md:grid-cols-2 gap-8">
+  return (
+    <section
+      className={`${
+        isDark ? "bg-[#111111] text-[#FFFFFF]" : "bg-[#fdfdf9] text-[#111111]"
+      } font-sans px-6 md:px-16 py-24 transition-colors duration-500`}
+    >
+      <div className="max-w-6xl mx-auto text-center">
+
+        {/* Heading */}
+        <motion.h2
+          className="text-[2rem] md:text-[3rem] font-bold uppercase tracking-widest leading-tight mb-16"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+        >
+          Echoes from the Wall
+        </motion.h2>
+
+        {/* Quotes Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
           {visitors.map((visitor, index) => (
             <motion.div
               key={index}
-              className="border border-neutral-800 rounded-xl bg-neutral-800 p-6 text-left flex gap-4 items-start shadow-md"
+              className={`rounded-xl p-6 flex gap-4 items-start border ${
+                isDark
+                  ? "bg-neutral-900 border-neutral-800"
+                  : "bg-white border-neutral-300"
+              }`}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
               transition={{ delay: index * 0.2 }}
+              viewport={{ once: true }}
             >
               <img
                 src={visitor.avatar}
@@ -47,8 +67,20 @@ const VisitorWall = () => {
                 className="w-12 h-12 rounded-full object-cover"
               />
               <div>
-                <p className="text-sm italic text-[#FBEEC1] mb-2">"{visitor.quote}"</p>
-                <p className="text-xs text-[#FBEEC1]">— {visitor.name}</p>
+                <p
+                  className={`text-sm italic ${
+                    isDark ? "text-[#FBEEC1]" : "text-neutral-700"
+                  } mb-2`}
+                >
+                  “{visitor.quote}”
+                </p>
+                <p
+                  className={`text-xs uppercase tracking-wide ${
+                    isDark ? "text-neutral-500" : "text-neutral-500"
+                  }`}
+                >
+                  — {visitor.name}
+                </p>
               </div>
             </motion.div>
           ))}

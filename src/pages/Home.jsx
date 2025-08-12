@@ -21,36 +21,34 @@ const HomePage = () => {
   return (
     <div className={`font-serif min-h-screen ${theme === 'dark' ? 'text-[#FBEEC1]' : 'text-black'}`}>
       {/* Toggle Button */}
-      <div className="fixed top-4 right-4 z-50">
-        <button
-          onClick={toggleTheme}
-          className="px-4 py-2 rounded border border-[#FBEEC1] text-[#FBEEC1] text-sm hover:bg-[#FBEEC1] hover:text-black transition"
-        >
-          {theme === "dark" ? "Switch to Light Mode" : "Switch to Dark Mode"}
-        </button>
-      </div>
+     
+      <section className={`${getBg("museum_home_texture.jpg")} overflow-x-hidden`}>
 
-      <section className={getBg("museum_home_texture.jpg")}>
         <HeroSection />
       </section>
 
-      <section className={getBg("museum_home_texture2.jpg")}>
+      <section className={`${getBg("museum_home_texture2.jpg")} overflow-x-hidden`}>
+
         <ManifestoSection />
       </section>
 
-      <section className={getBg("museum_home_texture3.jpg")}>
+      <section className={`${getBg("museum_home_texture3.jpg")} overflow-x-hidden`}>
+
         <FeaturedExhibition />
       </section>
 
-      <section className={getBg("museum_home_texture.jpg")}>
+     <section className={`${getBg("museum_home_texture.jpg")} overflow-x-hidden`}>
+
         <ExhibitionPreview />
       </section>
 
-      <section className={getBg("museum_home_texture2.jpg")}>
+      <section className={`${getBg("museum_home_texture2.jpg")} overflow-x-hidden`}>
+
         <AREXperience />
       </section>
 
-      <section className={getBg("museum_home_texture3.jpg")}>
+      <section className={`${getBg("museum_home_texture3.jpg")} overflow-x-hidden`}>
+
         <MuseumShopPreview />
       </section>
 

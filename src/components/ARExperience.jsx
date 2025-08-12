@@ -1,37 +1,92 @@
+import { useTheme } from "@/context/ThemeContext";
 import { motion } from "framer-motion";
 
 const ARExperience = () => {
+  const { theme } = useTheme();
+  const isDark = theme === "dark";
+
+  const lines = ["SCAN.", "TAP.", "REVEAL THE UNSEEN."];
+
+  const containerVariants = {
+    hidden: {},
+    visible: {
+      transition: { staggerChildren: 0.15 },
+    },
+  };
+
+  const lineVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.6, ease: [0.25, 1, 0.5, 1] },
+    },
+  };
+
   return (
-    <section className="font-serif px-6 md:px-12 py-20">
-      <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
-        {/* Mock AR Visual */}
+    <section className={`${isDark ? "bg-[#111111] text-[#FFFFFF]" : "bg-[#fdfdf9] text-[#111111]"} font-sans px-6 md:px-16 py-24`}>
+      <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+        {/* AR Image */}
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8 }}
-          className="rounded-xl overflow-hidden border border-neutral-800 shadow-lg"
+          viewport={{ once: true }}
+          className="rounded-xl overflow-hidden border shadow-md border-neutral-300 dark:border-neutral-800"
         >
           <img
-            src="https://via.placeholder.com/600x400/111111/ffffff?text=AR+Preview+Coming+Soon"
-            alt="AR Smart Label Preview"
+            src="/assets/ar-reveal.png" // use generated image here
+            alt="AR Medallion Scan"
             className="w-full object-cover"
           />
         </motion.div>
 
         {/* Text Content */}
         <div>
-          <h2 className="text-3xl md:text-4xl font-bold">
-            Scan. Tap. <span className="">Reveal the Unseen.</span>
-          </h2>
-          <p className="mt-4 text-lg">
-            Our pieces don’t just sit still — they whisper. Each medallion, shirt, or vase comes alive through LUVPOTION’s smart labels and AR reveals.
-          </p>
-          <p className="mt-2 text-sm italic">
-            Powered by emotion. Activated by you.
-          </p>
-          <button className="mt-6 px-6 py-3 bg-neutral-800 text-[#FBEEC1] font-semibold rounded-full hover:bg-black transition">
-            Experience the Future
-          </button>
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={containerVariants}
+            className="mb-6"
+          >
+            {lines.map((line, index) => (
+              <motion.h2
+                key={index}
+                variants={lineVariants}
+                className="text-[2rem] md:text-[3.2rem] font-bold uppercase tracking-widest leading-tight"
+              >
+                {line}
+              </motion.h2>
+            ))}
+          </motion.div>
+
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3 }}
+            className="text-base max-w-xl"
+          >
+            LUVPOTION objects come alive through smart labels and augmented layers. Each medallion, shirt, or sculpture whispers its story.
+          </motion.p>
+
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5 }}
+            className="mt-4 text-sm italic text-[#FBEEC1] dark:text-neutral-500"
+          >
+            Powered by memory. Activated by you.
+          </motion.p>
+
+          <motion.button
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.7 }}
+            className="mt-8 px-6 py-3 bg-neutral-900 text-[#FBEEC1] font-semibold rounded-full hover:bg-black transition"
+          >
+            Experience the Future →
+          </motion.button>
         </div>
       </div>
     </section>

@@ -7,10 +7,18 @@ export const ThemeProvider = ({ children }) => {
   const [theme, setTheme] = useState("dark");
 
   useEffect(() => {
-    document.documentElement.className = theme === "dark"
-      ? "bg-museum-texture text-[#fff6d8]"
-      : "bg-white text-black";
+    const html = document.documentElement;
+    html.classList.toggle("dark", theme === "dark");
+  
+    if (theme === "dark") {
+      html.classList.add("bg-museum-texture", "text-[#fff6d8]");
+      html.classList.remove("bg-white", "text-black");
+    } else {
+      html.classList.add("bg-white", "text-black");
+      html.classList.remove("bg-museum-texture", "text-[#fff6d8]");
+    }
   }, [theme]);
+  
 
   const toggleTheme = () => {
     const newTheme = theme === "dark" ? "light" : "dark";

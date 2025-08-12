@@ -1,0 +1,146 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Base document styling */
+
+html,
+body,
+#root {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    overscroll-behavior: none;
+     overflow-x: hidden !important;
+  position: relative;
+}
+
+
+/* Scroll container setup */
+
+.scroll-container {
+    height: 100vh;
+    width: 100%;
+    overflow-y: auto;
+    scroll-snap-type: y mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+}
+
+
+/* Section styling */
+
+.snap-section {
+    height: 100vh;
+    width: 100%;
+    scroll-snap-align: start;
+    position: relative;
+}
+
+
+/* Scrollbar hiding - cross-browser solution */
+
+.scroll-container::-webkit-scrollbar {
+    display: none;
+    width: 0;
+    height: 0;
+    background: transparent;
+}
+
+.scroll-container {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+
+/* Mobile viewport fixes */
+
+@media (max-width: 768px) {
+    .snap-section {
+        height: 100dvh;
+        min-height: -webkit-fill-available;
+    }
+}
+
+
+/* Noise background effect */
+
+.noise-bg::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url('https://grainy-gradients.vercel.app/noise.svg');
+    background-repeat: repeat;
+    opacity: 0.03;
+    pointer-events: none;
+    z-index: 0;
+}
+
+
+/* Reliable image fallback system */
+
+.reliable-image-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.reliable-image-fallback {
+    position: absolute;
+    inset: 0;
+    background-color: theme('colors.black');
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: theme('colors.white');
+    text-align: center;
+    padding: 1rem;
+}
+
+.reliable-image-fallback-initials {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    line-height: 1;
+}
+
+.reliable-image-fallback-name {
+    font-size: 0.875rem;
+    opacity: 0.8;
+    line-height: 1.25;
+}
+
+
+/* Image styling */
+
+.reliable-image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: opacity 0.3s ease;
+}
+
+.bg-museum-texture {
+    background-image: url('/assets/museum_home_texture.jpg');
+    background-repeat: repeat;
+    background-size: cover;
+}
+
+/* Additional utilities */
+
+.no-scroll {
+    overflow: hidden;
+}
+
+
+/* Fix for iOS bounce */
+
+@supports (-webkit-touch-callout: none) {
+    .scroll-container {
+        height: -webkit-fill-available;
+    }
+}

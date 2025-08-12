@@ -1,63 +1,114 @@
 import { motion } from "framer-motion";
+import { useTheme } from "@/context/ThemeContext";
 
 const ManifestoSection = () => {
+  const { theme } = useTheme();
+  const isDark = theme === "dark";
+
+  const lines = ["LUVPOTION", "MANIFESTO"];
+
+  const containerVariants = {
+    hidden: {},
+    visible: {
+      transition: {
+        staggerChildren: 0.15,
+      },
+    },
+  };
+
+  const lineVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.6, ease: [0.25, 1, 0.5, 1] },
+    },
+  };
+
   return (
-
-    
-    <section className="px-6 md:px-20 py-24 font-serif">
-         {/* Section Heading */}
-      <motion.h2
-        className="text-center text-3xl md:text-5xl tracking-[0.2em] font-semibold mb-12 mt-6"
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
+    <section
+      className={`${
+        isDark ? "bg-[#111111] text-[#FFFFFF]" : "bg-[#fdfdf9] text-[#111111]"
+      } font-sans px-6 md:px-16 py-24 transition-colors duration-500`}
+    >
+      {/* Heading */}
+      <motion.div
+        className="text-left md:text-center mb-16"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+        variants={containerVariants}
       >
-      LUVPOTION MANISFESTO
-      </motion.h2>
-      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-10 items-start">
-        {/* Left Column */}
-        <div className="space-y-6 text-sm md:text-base leading-relaxed">
+        {lines.map((line, index) => (
+          <motion.h2
+            key={index}
+            className="text-[2.4rem] md:text-[4.2rem] font-bold uppercase tracking-widest leading-tight"
+            variants={lineVariants}
+          >
+            {line}
+          </motion.h2>
+        ))}
+      </motion.div>
+
+      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-10 items-start text-sm md:text-base leading-relaxed">
+        {/* Left */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="space-y-6"
+        >
           <p>
-          From independence to military rule, democracy to dictatorship, Nigeria’s history is a landscape of power shifts, silent battles, and public reckonings.
-
-LUVPOTION transforms these complicated legacies into collectible objects — archiving the faces, events, and eras that shaped our state. Our work is not to choose sides, but to keep the record intact, unfiltered, and accessible for generations to come.
-
-Each drop distills fragments of leadership, conflict, and evolution into physical forms that challenge how we interact with the past.
+            From independence to dictatorship, Nigeria’s history is a shifting terrain of power, silence, and survival.
           </p>
           <p>
-          is not a judgment. It is preservation. We archive Nigeria’s story through art, wearable collectibles, and cultural memory. Every leader. Every era. Every decision. All part of the same evolving history.
+            LUVPOTION transforms these legacies into sculpted archives — medallions, prints, and vignettes that preserve the memory of statecraft.
           </p>
-        </div>
+          <p>
+            Our mission is not to retell the story — but to make its artifacts impossible to forget.
+          </p>
+        </motion.div>
 
-        {/* Image */}
-        <div className="mx-auto">
+        {/* Center */}
+        <motion.div
+          className="mx-auto w-full"
+          initial={{ opacity: 0, scale: 0.95 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
           <img
-            src="/assets/museum.jpg" // Make sure this exists in /public/assets
+            src="/assets/museum.jpg"
             alt="Museum interior"
-            className="rounded-md w-full object-cover max-h-[600px]"
+            className="rounded-md w-full object-cover max-h-[500px] border border-neutral-300 dark:border-neutral-800 shadow-md"
           />
-        </div>
+        </motion.div>
 
-        {/* Right Column */}
-        <div className="space-y-6 text-sm md:text-base leading-relaxed">
+        {/* Right */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="space-y-6"
+        >
           <p>
-          These pieces are not political endorsements.
-They are cultural documentation.
-
-Our pendants, sculptures, and emblems are limited by design — sculpted in precious metal, numbered for rarity, and delivered with historical context.
-
-In preserving uncomfortable history, we protect national memory from erasure. To forget is easy. To remember honestly requires courage.
-
-With every drop, LUVPOTION expands the national archive — one artifact at a time.
+            These objects are not political. They are historical residues. Fragile, limited, documented.
+          </p>
+          <p>
+            Each LUVPOTION piece is engraved with the weight of era, material, and memory. We preserve power by forging it into form.
+          </p>
+          <p>
+            With every drop, we expand the living archive — one artifact at a time.
           </p>
           <div>
-            <button className="mt-4 border border-[#FBEEC1] px-6 py-2 text-sm hover:bg-[#FBEEC1] hover:text-black transition">
-              View more
+            <button className="mt-4 border border-[#FBEEC1] px-6 py-2 text-sm rounded-full hover:bg-[#FBEEC1] hover:text-black transition">
+              View More →
             </button>
           </div>
-        </div>
+        </motion.div>
       </div>
-
     </section>
   );
 };

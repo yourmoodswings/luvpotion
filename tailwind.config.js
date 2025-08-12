@@ -1,10 +1,21 @@
 export default {
+    darkMode: 'class', // not 'media'
     content: [
         "./index.html",
         "./src/**/*.{js,jsx}",
     ],
     theme: {
+
         extend: {
+            animation: {
+                'slide-up': 'slideUp 0.7s ease-out forwards',
+              },
+              keyframes: {
+                slideUp: {
+                  '0%': { transform: 'translateY(40px)', opacity: '0' },
+                  '100%': { transform: 'translateY(0)', opacity: '1' },
+                },
+              },
             scrollbarWidth: {
                 hide: 'none'
             },
@@ -21,3 +32,4 @@ export default {
 
     ]
 }
+

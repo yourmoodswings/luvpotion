@@ -1,6 +1,7 @@
 import { useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import { useTheme } from "@/context/ThemeContext";
 
 const exhibitions = [
   {
@@ -25,32 +26,27 @@ const exhibitions = [
 
 const ExhibitionPreview = () => {
   const scrollRef = useRef(null);
-  let isDown = false;
-  let startX;
-  let scrollLeft;
+  const { theme } = useTheme();
+  const isDark = theme === "dark";
 
   useEffect(() => {
     const slider = scrollRef.current;
     if (!slider) return;
 
-    const mouseDownHandler = (e) => {
+    let isDown = false;
+    let startX, scrollLeft;
+
+    const onMouseDown = (e) => {
       isDown = true;
       slider.classList.add("cursor-grabbing");
       startX = e.pageX - slider.offsetLeft;
       scrollLeft = slider.scrollLeft;
     };
-
-    const mouseLeaveHandler = () => {
+    const onMouseUp = () => {
       isDown = false;
       slider.classList.remove("cursor-grabbing");
     };
-
-    const mouseUpHandler = () => {
-      isDown = false;
-      slider.classList.remove("cursor-grabbing");
-    };
-
-    const mouseMoveHandler = (e) => {
+    const onMouseMove = (e) => {
       if (!isDown) return;
       e.preventDefault();
       const x = e.pageX - slider.offsetLeft;
@@ -58,33 +54,41 @@ const ExhibitionPreview = () => {
       slider.scrollLeft = scrollLeft - walk;
     };
 
-    slider.addEventListener("mousedown", mouseDownHandler);
-    slider.addEventListener("mouseleave", mouseLeaveHandler);
-    slider.addEventListener("mouseup", mouseUpHandler);
-    slider.addEventListener("mousemove", mouseMoveHandler);
+    slider.addEventListener("mousedown", onMouseDown);
+    slider.addEventListener("mouseleave", onMouseUp);
+    slider.addEventListener("mouseup", onMouseUp);
+    slider.addEventListener("mousemove", onMouseMove);
 
     return () => {
-      slider.removeEventListener("mousedown", mouseDownHandler);
-      slider.removeEventListener("mouseleave", mouseLeaveHandler);
-      slider.removeEventListener("mouseup", mouseUpHandler);
-      slider.removeEventListener("mousemove", mouseMoveHandler);
+      slider.removeEventListener("mousedown", onMouseDown);
+      slider.removeEventListener("mouseleave", onMouseUp);
+      slider.removeEventListener("mouseup", onMouseUp);
+      slider.removeEventListener("mousemove", onMouseMove);
     };
   }, []);
 
   return (
-    <section className="py-16 px-6 md:px-12 font-serif">
-      <h2 className="text-3xl md:text-4xl font-bold mb-8">
+    <section className={`${isDark ? "bg-[#111111] text-[#FFFFFF]" : "bg-[#fdfdf9] text-[#111111]"} font-sans py-24 px-6 md:px-16`}>
+      <motion.h2
+        className="text-[2.5rem] md:text-[3.5rem] font-bold uppercase tracking-widest mb-12"
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.7 }}
+      >
         Explore Our Digital Exhibitions
-      </h2>
+      </motion.h2>
 
       <div
         ref={scrollRef}
-        className="flex space-x-6 overflow-x-auto pb-4 hide-scrollbar cursor-grab select-none"
+        className="flex space-x-6 overflow-x-auto max-w-full pb-4 hide-scrollbar cursor-grab select-none"
       >
         {exhibitions.map((exhibit, index) => (
           <motion.div
             key={index}
-            className="min-w-[300px] md:min-w-[340px] flex-shrink-0 bg-neutral-900 rounded-xl overflow-hidden border border-neutral-800 hover:scale-[1.02] transition-transform duration-300"
+            className={`min-w-[300px] md:min-w-[340px] flex-shrink-0 rounded-xl overflow-hidden border hover:scale-[1.02] transition-transform duration-300 ${
+              isDark ? "bg-neutral-900 border-neutral-800" : "bg-white border-neutral-300"
+            }`}
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -97,8 +101,8 @@ const ExhibitionPreview = () => {
                 className="w-full h-48 object-cover"
               />
               <div className="p-4">
-                <h3 className="text-xl text-[#e3d7b2] font-semibold mb-2">{exhibit.title}</h3>
-                <p className="text-sm text-[#e3d7b2]">{exhibit.description}</p>
+                <h3 className="text-xl font-semibold mb-2">{exhibit.title}</h3>
+                <p className="text-sm">{exhibit.description}</p>
               </div>
             </Link>
           </motion.div>
