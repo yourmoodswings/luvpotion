@@ -157,7 +157,7 @@ const HeadsOfState = () => {
   
         artImage: "/assets/exhibitions/tafawa-mobile.png", // Placeholder art
         mobileArtImage: "/assets/exhibitions/tafawa-mobile.png",
-        chapterTitle: "TAFAWA BALEWA — THE STORM RIDER",
+        chapterTitle: "THE STORM RIDER",
   
         narrative: `Prime Minister of Nigeria, 1957–1966 In the heat of a desert storm, our first Prime Minister, Sir Abubakar Tafawa Balewa, rides against the winds of an uncertain nation. A symbol of dignity and humility, he clutches Nigeria’s newborn destiny—two white horses, fierce and untamed, tethered to a coat of arms still learning its weight. In his other hand, an eagle perches with the promise of pride, but its wings are restless. This is no ordinary ride—it is a metaphor for a foundation not yet solid. Nigeria, freshly carved and already cracking under the pressure of ambition, expectation, and division, placed its hopes in Balewa’s calm hands. From 1957 until his tragic assassination in 1966, he steered a fragile federation with quiet conviction, threading unity through a rising tide of regionalism and unrest. But the storm was faster than resolve, and louder than the silent patience he carried. He was taken from us in the midst of a riddle we are still trying to solve. What did he die for? This piece does not offer an answer—it mourns the question. Through this painting, we immortalize a man who bore the weight of a fragmented future too soon. It is not just history—it is a haunting reflection of what it means to lead a nation still finding its voice, and a reminder of the price of carrying it alone.`
   
@@ -193,7 +193,7 @@ const HeadsOfState = () => {
   
         artImage: "", // Placeholder art
         mobileArtImage: "",
-        chapterTitle: "Nmadi Azikiwe — THE STORM RIDER",
+        chapterTitle: "THE SCHOLAR PRESIDENT",
   
         theme: "forest",
   
@@ -231,7 +231,7 @@ const HeadsOfState = () => {
   
         artImage: "",
         mobileArtImage: "/assets/exhibitions/ironsi-mobile.png",
-        chapterTitle: "TAFAWA BALEWA — THE STORM RIDER",
+        chapterTitle: "SILENCE BEFORE CHAOS",
   
         theme: "blacksteel",
   
@@ -269,7 +269,7 @@ const HeadsOfState = () => {
   
         artImage: "/assets/exhibitions/gowon-mobile.png",
         mobileArtImage: "/assets/exhibitions/gowon-mobile.png",
-        chapterTitle: "Love in Uniform",
+        chapterTitle: "LOVE IN UNIFORM",
   
         theme: "forest",
   
@@ -306,7 +306,7 @@ const HeadsOfState = () => {
       magazineContent: {
   
         artImage: "/assets/exhibitions/murtala.jpg",
-        chapterTitle: "TAFAWA BALEWA — THE STORM RIDER",
+        chapterTitle: "SPEED IS INTEGRITY",
         mobileArtImage: "/assets/exhibitions/murtala-mobile.png",
   
         theme: "fire",
@@ -345,7 +345,7 @@ const HeadsOfState = () => {
   
         artImage: "",
         mobileArtImage: "/assets/exhibitions/obasanjo-mobile.png",
-        chapterTitle: "TAFAWA BALEWA — THE STORM RIDER",
+        chapterTitle: "THE GOD FATHER",
   
         theme: "forest",
   
@@ -383,7 +383,7 @@ const HeadsOfState = () => {
   
         artImage: "",
         mobileArtImage: "/assets/exhibitions/shehu-mobile.png",
-        chapterTitle: "TAFAWA BALEWA — THE STORM RIDER",
+        chapterTitle: "SHEHU SHAGARI",
   
         theme: "desert",
   
@@ -421,7 +421,7 @@ const HeadsOfState = () => {
   
         artImage: "/assets/exhibitions/buhari-mobile.png",
         mobileArtImage: "/assets/exhibitions/buhari-mobile.png",
-        chapterTitle: "A Quiet Exit",
+        chapterTitle: "A QUIET EXIT",
         theme: "blacksteel",
   
         narrative: `The former general returned—from uniform to suit—still with a campaign against rot…`
@@ -458,7 +458,7 @@ const HeadsOfState = () => {
   
         artImage: "/assets/exhibitions/babangida.png",
         mobileArtImage: "/assets/exhibitions/babangida-mobile.png",
-        chapterTitle: "Brothers at the Barrel",
+        chapterTitle: "BROTHERS AT THE BARREL",
         theme: "blacksteel",
   
         narrative: `A military strongman whose most lasting act was to cancel a popular vote…`
@@ -495,7 +495,7 @@ const HeadsOfState = () => {
   
         artImage: "",
         mobileArtImage: "/assets/exhibitions/ernest-mobile.png",
-        chapterTitle: "TAFAWA BALEWA — THE STORM RIDER",
+        chapterTitle: "CARETAKER IN A STORM",
         theme: "gray",
   
         narrative: `Installed to placate public outrage…he lasted only months before another takeover…`
@@ -532,7 +532,7 @@ const HeadsOfState = () => {
   
         artImage: "/assets/exhibitions/abacha-mobile.png",
         mobileArtImage: "/assets/exhibitions/abacha-mobile.png",
-        chapterTitle: "The Apple Never Falls Far from Power",
+        chapterTitle: "APPLE OF POWER",
   
         theme: "blacksteel",
   
@@ -567,7 +567,7 @@ const HeadsOfState = () => {
       magazineContent: {
   
         artImage: "",
-        chapterTitle: "TAFAWA BALEWA — THE STORM RIDER",
+        chapterTitle: "EXIT WITH DIGNITY",
         mobileArtImage: "/assets/exhibitions/abdulsalami-mobile.png",
         theme: "forest",
   
@@ -606,7 +606,7 @@ const HeadsOfState = () => {
       magazineContent: {
   
         artImage: "/assets/exhibitions/obansanjo-mobile.png",
-        chapterTitle: "When Agbada Met Peanut",
+        chapterTitle: "WHEN PEANUTS MET AGBADA",
         mobileArtImage: "/assets/exhibitions/obansanjo-mobile.png",
   
         theme: "forest",
@@ -649,7 +649,7 @@ const HeadsOfState = () => {
   
         artImage: "",
         mobileArtImage: "/assets/exhibitions/yaradua-mobile.png",
-        chapterTitle: "TAFAWA BALEWA — THE STORM RIDER",
+        chapterTitle: "UMARU YAR'ADUA",
         theme: "desert",
   
         narrative: `The quieter reformer, fighting illness while pushing for constitutional reforms…`
@@ -686,7 +686,7 @@ const HeadsOfState = () => {
   
         artImage: "/assets/exhibitions/goodluck-mobile.png",
         mobileArtImage: "/assets/exhibitions/goodluck-mobile.png",
-        chapterTitle: "Goodluck, Glass Raised",
+        chapterTitle: "GOODLUCK, GLASS RAISED",
         theme: "forest",
   
         narrative: `From quiet deputy to headline-making transition…a presidency of crisis and calm…`
@@ -823,7 +823,7 @@ const HeadsOfState = () => {
         </div>
         <div className="flex-1 h-[6px] bg-white/10 rounded-full overflow-hidden max-w-sm">
           <div
-            className={`h-full bg-amber-400 transition-all duration-300 ${audioEnabled ? 'w-3/4' : 'w-0'}`}
+            className={`h-full bg-white transition-all duration-300 ${audioEnabled ? 'w-3/4' : 'w-0'}`}
           ></div>
         </div>
         <button
@@ -960,7 +960,7 @@ const HeadsOfState = () => {
                           animate={{ opacity: 1, x: 0 }}
                           transition={{ delay: 0.5 + i * 0.1 }}
                         >
-                          <span className="text-rose-400 mr-2">•</span>
+                          <span className="text-white mr-2">•</span>
                           <span className="text-neutral-300">{item}</span>
                         </motion.li>
                       ))}
@@ -974,9 +974,9 @@ const HeadsOfState = () => {
                       animate={{ opacity: 1 }}
                       transition={{ delay: 1 }}
                     >
-                      <span className="text-rose-400">"</span>
+                      <span className="text-white">"</span>
                       {leader.quote}
-                      <span className="text-rose-400">"</span>
+                      <span className="text-white">"</span>
                     </motion.p>
                   </div>
                 </motion.div>
@@ -1030,7 +1030,7 @@ const HeadsOfState = () => {
   </div>
 ) : (
 <div className="relative w-full h-[95%] max-w-[1080px] aspect-[4/5] cursor-pointer mx-auto">
-  <div className="w-full h-full">
+  <div className="w-full h-full mt-4">
     <ReliableImage
       src={isMobile && leader.magazineContent.mobileArtImage 
            ? leader.magazineContent.mobileArtImage 
@@ -1121,7 +1121,7 @@ const HeadsOfState = () => {
                             <div className="mt-auto pt-4">
                               <button
                                 onClick={() => toggleNarrative(index)}
-                                className="px-4 py-2 bg-gradient-to-r from-amber-400 to-rose-400 text-black text-xs font-semibold rounded-md hover:opacity-90 transition-all"
+                                className="px-4 py-2 bg-white text-black text-xs font-semibold rounded-md hover:opacity-90 transition-all"
                               >
                                 📖 Read Full Narrative
                               </button>
@@ -1142,10 +1142,9 @@ const HeadsOfState = () => {
                         onClick={() => toggleNarrative(index)}
                       >
                         <div className="max-w-4xl mx-auto">
-                          <h3 className="text-3xl md:text-4xl font-serif font-bold mb-6 text-amber-300">
+                          <h3 className="text-3xl md:text-4xl font-serif font-bold mb-6 text-white">
                             {chapterTitle}
                           </h3>
-                          <div className="text-xs uppercase tracking-widest mb-4 text-rose-300">Full Narrative</div>
                           {fullText.split('\n\n').map((para, i) => (
                             <p key={i} className="mb-6 text-[15px] leading-[1.9rem] font-light tracking-wide first-letter:text-4xl first-letter:font-bold first-letter:float-left first-letter:pr-2 first-letter:leading-[2.5rem]">
                               {para}
@@ -1158,15 +1157,14 @@ const HeadsOfState = () => {
 
                     {/* Full Narrative (Mobile) */}
                     {isMobile && (
-                      <div className={`bg-black/60 backdrop-blur-sm text-sm text-white w-full min-h-fit rounded-xl p-4 cursor-pointer overflow-y-auto ${isExpanded ? 'absolute inset-0 z-20 bg-black/90' : ''}`}
+                      <div className={`bg-black/60 backdrop-blur-sm mt-2 text-sm text-white w-full min-h-fit rounded-xl p-4 cursor-pointer overflow-y-auto ${isExpanded ? 'absolute inset-0 z-20 bg-black/90' : ''}`}
                         onClick={() => toggleNarrative(index)}
                       >
                         {isExpanded ? (
                           <>
-                            <h3 className="text-xl font-serif font-bold mb-4 text-amber-300">
+                            <h3 className="text-xl mt-12 font-serif font-bold mb-4 text-white">
                               {chapterTitle}
                             </h3>
-                            <div className="text-xs uppercase tracking-wider mb-2 text-rose-300">Full Narrative</div>
                             {fullText.split('\n\n').map((para, i) => (
                               <p key={i} className="mb-3 text-sm first-letter:text-2xl first-letter:font-bold first-letter:float-left first-letter:pr-2 first-letter:leading-[2.2rem]">
                                 {para}
