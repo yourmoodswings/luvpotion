@@ -62,3 +62,13 @@ Live-auction product records are locked while published lots reference them; lot
 Decorative link arrows were removed. Shared navigation, product cards, filters, auction details and admin layouts have responsive styles. The desktop browser automation runtime failed to initialize during this change, so actual rendered mobile widths still need visual verification; build and server-render checks alone do not establish appearance.
 
 References: https://paystack.com/docs/payments/verify-payments/ and https://paystack.com/docs/payments/webhooks/.
+
+## Payment settings in the admin
+
+Open `/admin#payments` and use **Payment settings**. Save the Paystack secret key (test first), optionally save its webhook signing secret, then use **Test saved connection**. A successful test checks Paystack API access without creating a charge. Once hosted checkout and webhook delivery have been tested and actual lots are ready, enable auction bidding and winner checkout. Public-key entry is unnecessary for hosted Paystack checkout.
+
+Keys are encrypted with AES-256-GCM in a separate database table, excluded from content exports, and never returned to the browser. Blank fields retain saved secrets. Changing the secret key resets connection verification and disables bidding. Credentials cannot change while live bids or unpaid winning results depend on them. Version checks reject stale admin saves.
+
+`SETTINGS_ENCRYPTION_KEY` is server-only and must remain stable. The local ignored `.env.admin` has been provisioned with a generated key; the Render Blueprint generates one automatically. Back it up privately alongside the persistent database. Replacing or losing this encryption key makes existing saved Paystack settings unreadable. Do not put it in frontend environment variables or commit it. Existing Paystack environment variables remain a fallback only until settings are saved in the admin. Admin changes apply immediately without a restart.
+
+The webhook field shows the current server origin. Localhost cannot receive Paystack callbacks from the internet; the production admin will show the public HTTPS endpoint after deployment. A successful connection test is not proof of checkout or webhook delivery.

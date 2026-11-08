@@ -4,13 +4,23 @@ import {tmpdir} from 'node:os';
 import path from 'node:path';
 import {createHmac,randomUUID} from 'node:crypto';
 import {createApp} from '../server/app.mjs';
-const dir=mkdtempSync(path.join(tmpdir(),'luvpotion-live-test-')),origin='http://localhost',password='admin-test-password-only',secret='sk_test_only',signing='whsec_test_only';
+const dir=mkdtempSync(path.join(tmpdir(),'luvpotion-live-test-')),origin='http://localhost',password='admin-test-password-only',secret='sk_test_mocksecret123',signing='whsec_test_only';
 const payments=new Map();let providerCalls=0;
-const fetcher=async(url,options)=>{if(url.endsWith('/initialize')){providerCalls++;const d=JSON.parse(options.body);payments.set(d.reference,{...d,status:'pending',domain:'test',customer:{email:d.email}});return {ok:true,json:async()=>({status:true,data:{authorization_url:'https://checkout.paystack.com/test'}})};}const ref=url.split('/').at(-1);return {ok:true,json:async()=>({status:true,data:payments.get(ref)})};};
-const app=createApp({dataDir:dir,password,origin,auctionOptions:{enabled:true,paystackKey:secret,webhookSecret:signing,fetcher}});await new Promise(r=>app.server.listen(0,'127.0.0.1',r));const base=`http://127.0.0.1:${app.server.address().port}`;
+const fetcher=async(url,options)=>{if(url.endsWith('/balance'))return {ok:options.headers.Authorization==='Bearer '+secret,json:async()=>({status:true,data:[]})};if(url.endsWith('/initialize')){providerCalls++;const d=JSON.parse(options.body);payments.set(d.reference,{...d,status:'pending',domain:'test',customer:{email:d.email}});return {ok:true,json:async()=>({status:true,data:{authorization_url:'https://checkout.paystack.com/test'}})};}const ref=url.split('/').at(-1);return {ok:true,json:async()=>({status:true,data:payments.get(ref)})};};
+const encryptionKey='test-only-encryption-key-with-more-than-32-characters';let app=createApp({dataDir:dir,password,origin,auctionOptions:{enabled:false,paystackKey:'',webhookSecret:'',fetcher,encryptionKey}});await new Promise(r=>app.server.listen(0,'127.0.0.1',r));let base=`http://127.0.0.1:${app.server.address().port}`;
 async function request(p,{method='GET',data,cookie='',csrf='',headers={},raw}={}){const r=await fetch(base+p,{method,headers:{Origin:origin,Cookie:cookie,'Content-Type':'application/json','X-CSRF-Token':csrf,...headers},body:raw|| (data?JSON.stringify(data):undefined)});return {status:r.status,data:await r.json(),cookie:r.headers.get('set-cookie')?.split(';')[0]};}
 try{
  const admin=await request('/api/admin/login',{method:'POST',data:{password}});const auth={cookie:admin.cookie,csrf:admin.data.csrf};
+ assert.equal((await request('/api/admin/payments')).status,401);
+ assert.equal((await request('/api/admin/payments',{cookie:auth.cookie,method:'PUT',data:{version:0,secretKey:secret}})).status,403);
+ const save=await request('/api/admin/payments',{...auth,method:'PUT',data:{version:0,secretKey:secret,webhookSecret:signing,enabled:false}});assert.equal(save.status,200);assert.equal(save.data.version,1);assert.equal(save.data.secretConfigured,true);assert.ok(!JSON.stringify(save.data).includes(secret));
+ assert.ok(!app.db.prepare("SELECT payload FROM private_settings").get().payload.includes(secret));
+ assert.equal((await request('/api/admin/payments',{...auth,method:'PUT',data:{version:1,enabled:true}})).status,400);
+ assert.equal((await request('/api/admin/payments/test',{...auth,method:'POST',data:{version:1}})).status,200);
+ assert.equal((await request('/api/admin/payments',{...auth,method:'PUT',data:{version:2,enabled:true}})).status,200);
+ assert.equal((await request('/api/bidding/session')).data.enabled,true);
+ assert.equal((await request('/api/admin/payments',{...auth,method:'PUT',data:{version:1,enabled:false}})).status,409);
+ assert.ok(!JSON.stringify((await request('/api/admin/export',auth)).data).includes(secret));
  const product={name:'Actual flower vase',slug:'actual-vase',price:200000,stock:1,ready:true,sample:false,saleMode:'auction',photo:'/assets/shop/vase.svg',sizes:''};
  await request('/api/admin/records/products/vase',{...auth,method:'PUT',data:{record:product}});await request('/api/admin/records/products/vase/publish',{...auth,method:'POST',data:{version:1}});
  const lot={name:'Vase auction',productId:'vase',mode:'live',enabled:true,startsAt:new Date(Date.now()-10000).toISOString(),endsAt:new Date(Date.now()+3600000).toISOString(),increment:5000,terms:'Highest accepted bid at closing wins.',delivery:'Collection from studio, included.'};
@@ -21,6 +31,7 @@ try{
  assert.equal((await bid(a,200000)).status,403);
  for(const bidder of [a,b])assert.equal((await request('/api/admin/bidders/'+bidder.data.user.id,{...auth,method:'PATCH',data:{status:'approved'}})).status,200);
  const race=await Promise.all([bid(a,200000),bid(b,200000)]);assert.deepEqual(race.map(r=>r.status).sort(),[201,409]);
+ assert.equal((await request('/api/admin/payments',{...auth,method:'PUT',data:{version:3,secretKey:'sk_test_replacement123',enabled:false}})).status,409);
  const first=race[0].status===201?a:b,second=first===a?b:a,id=randomUUID();assert.equal((await bid(second,205000,id)).status,201);assert.equal((await bid(second,205000,id)).status,200);
  assert.equal((await bid(second,210000)).status,400);
  assert.equal((await request('/api/admin/records/auctions/vase-lot/unpublish',{...auth,method:'POST',data:{version:2}})).status,409);
@@ -41,5 +52,7 @@ try{
  assert.equal((await request('/api/bidding/session',{cookie:second.cookie})).data.wins[0].status,'paid');
  assert.equal((await request('/api/content')).data.products.find(p=>p.id==='vase').stock,0);
  assert.equal(providerCalls,1);
- console.log('PASS: bidder registration/approval, concurrent bids, replay protection, minimums, locked terms/inventory, closing, private winners, winner-only Paystack checkout, reference reuse, amount mismatch rejection, signed webhook verification, duplicate settlement, sold inventory. Paystack mocked; no real charges.');
+ await new Promise(r=>app.server.close(r));app=createApp({dataDir:dir,password,origin,auctionOptions:{enabled:false,paystackKey:'',webhookSecret:'',fetcher,encryptionKey}});await new Promise(r=>app.server.listen(0,'127.0.0.1',r));base=`http://127.0.0.1:${app.server.address().port}`;
+ assert.equal((await request('/api/bidding/session')).data.enabled,true);assert.equal((await request('/api/admin/payments',auth)).data.secretConfigured,true);
+ console.log('PASS: encrypted admin settings, masked responses, CSRF, test-before-enable, revision conflicts, rotation protection, restart persistence; bidder registration/approval, concurrent bids, replay protection, minimums, locked terms/inventory, closing, private winners, winner-only Paystack checkout, reference reuse, amount mismatch rejection, signed webhook verification, duplicate settlement, sold inventory. Paystack mocked; no real charges.');
 }finally{await new Promise(r=>app.server.close(r));assert.equal(path.dirname(path.resolve(dir)),path.resolve(tmpdir()));assert.ok(path.basename(dir).startsWith('luvpotion-live-test-'));rmSync(dir,{recursive:true,force:true});}
