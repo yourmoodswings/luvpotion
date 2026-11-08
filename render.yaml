@@ -1,14 +1,30 @@
 services:
   - type: web
-    name: luvpotion
-    branch: codex/render-launch
-    runtime: static
-    buildCommand: npm ci --include=dev && npm run build
-    staticPublishPath: ./dist
+    name: luvpotion-platform
+    branch: codex/admin-backend
+    runtime: node
+    plan: starter
+    buildCommand: npm ci --include=dev && npm run build:admin
+    startCommand: npm start
+    healthCheckPath: /api/health
     envVars:
       - key: NODE_VERSION
-        value: "22"
-    routes:
-      - type: rewrite
-        source: /*
-        destination: /index.html
+        value: "24"
+      - key: NODE_ENV
+        value: production
+      - key: HOST
+        value: 0.0.0.0
+      - key: DATA_DIR
+        value: /var/data/luvpotion
+      - key: APP_ORIGIN
+        sync: false
+      - key: ADMIN_PASSWORD
+        sync: false
+      - key: LIVE_AUCTIONS_ENABLED
+        value: "false"
+      - key: SETTINGS_ENCRYPTION_KEY
+        generateValue: true
+    disk:
+      name: luvpotion-data
+      mountPath: /var/data
+      sizeGB: 1
