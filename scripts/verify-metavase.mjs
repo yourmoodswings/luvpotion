@@ -1,0 +1,15 @@
+import assert from 'node:assert/strict';
+const memory=new Map();globalThis.localStorage={getItem:k=>memory.get(k)||null,setItem:(k,v)=>memory.set(k,v)};
+globalThis.fetch=()=>{throw new Error('Unexpected network request');};
+const api=await import('../src/lib/storeApi.js');
+const draft=await api.getProductBySlug('metavase-flower-vase');assert.equal(draft.pending,true);assert.equal(draft.is_purchasable,false);await assert.rejects(api.addItem(draft.id),/not available/);
+const form={id:draft.id,name:'Test painted flower vase',price:'200000',stock:1,description:'Test only',dimensions:'Test dimensions',material:'Test material',ready:true,photo:''};
+await assert.rejects(api.savePiece(form),/actual photo/);
+await assert.rejects(api.savePiece({...form,photo:'https://example.com/photo.jpg'}),/Choose a/);
+const photo='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+a1ioAAAAASUVORK5CYII=';
+await api.savePiece({...form,photo});const ready=await api.getProductBySlug(draft.slug);assert.equal(ready.prices.price,'20000000');assert.equal(ready.is_purchasable,true);assert.equal(ready.images[0].src,photo);
+await api.addItem(ready.id);const order=await api.placeOrder({name:'Test',email:'test@example.com'});assert.equal(order.totals.total_items,'20000000');assert.equal((await api.getProductBySlug(draft.slug)).is_in_stock,false);
+await api.savePiece({...form,photo,stock:2});assert.equal((await api.getProductBySlug(draft.slug)).add_to_cart.maximum,2);assert.equal((await api.getOrder(order.id)).totals.total_items,'20000000');
+const second=await api.savePiece({...form,id:undefined,photo,name:'Second test vase',ready:false});assert.notEqual(second.id,draft.id);assert.equal((await api.exportInventory()).filter(p=>p.collection==='metavase').length,2);
+await api.addItem(ready.id);await api.savePiece({...form,photo,ready:false});await assert.rejects(api.placeOrder({name:'Test',email:'test@example.com'}),/Stock changed/);
+console.log('PASS: pending piece cannot sell, image/price confirmation, NGN 200000 pricing, saved inventory, linked product, local order, sold out, restocking, order snapshots, multiple pieces, unpublishing a bag item.');

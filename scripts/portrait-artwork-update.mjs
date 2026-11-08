@@ -1,0 +1,11 @@
+import fs from 'node:fs';
+let s=fs.readFileSync('src/pages/HeadsOfState.jsx','utf8');
+s="import ArtworkViewer from '@/components/ArtworkViewer';\nimport { shortPassage } from '@/lib/artworkView';\n"+s;
+s=s.replace("[panel,setPanel]=useState('story')","[panel,setPanel]=useState('artwork')").replace("setPanel('story');setBeat(0)","setPanel('artwork');setBeat(0)");
+s=s.replace('<p>{beats[beat]}</p>','<p>{shortPassage(beats[beat])}</p>');
+s=s.replace('<img src={chapter.artwork} alt={`Artwork interpreting ${chapter.name}`}/>','<ArtworkViewer key={chapter.id} src={chapter.artwork} alt={`Artwork interpreting ${chapter.name}`} motion={motion}/>');
+s=s.replace('<p>Let the composition, symbols, and materials tell another part of the story.</p>','<p>{shortPassage(chapter.quote,24)}</p>');
+s=s.replace('<h2>A frame<br/><em>waiting to move.</em></h2><p>No chapter film is attached yet. This slow-moving artwork is a presentation study, not the original video.</p>','<h2>Chapter film</h2><p>Portrait film coming soon. Animated artwork preview.</p>');
+s=s.replace('Ambient soundtrack available through Sound. Chapter voiceover has not been attached.','Ambient sound available · voiceover pending.');
+s=s.replace('Attach chapter film, voiceover or captions ↗','Add chapter media ↗');
+fs.writeFileSync('src/pages/HeadsOfState.jsx',s);

@@ -1,0 +1,17 @@
+import fs from 'node:fs';
+let s=fs.readFileSync('scripts/verify-metavase.mjs','utf8').replace('(await api.exportInventory()).length,2','(await api.exportInventory()).filter(p=>p.collection===\'metavase\').length,2');fs.writeFileSync('scripts/verify-metavase.mjs',s);
+s=fs.readFileSync('scripts/verify-routes.mjs','utf8').replace("'/exhibitions/heads-of-state','/cart'","'/exhibitions/heads-of-state','/exhibitions/heads-of-state#chapter-0','/exhibitions/heads-of-state#chapter-16','/exhibitions/heads-of-state#chapter-99','/artists','/artists/missing','/studio/artists','/studio/media?chapter=0','/drops?exhibition=heads-of-state','/cart'");
+s=s.replace("if(!html.includes('main-content')", "if(route==='/exhibitions/heads-of-state'&&!html.includes('THE INVESTIGATION BOARD'))throw new Error('Board not rendered');\n if(route.includes('#chapter-0')&&!html.includes('Abubakar Tafawa Balewa'))throw new Error('Chapter deep link failed');\n if(route.includes('#chapter-99')&&!html.includes('THE INVESTIGATION BOARD'))throw new Error('Invalid chapter must fall back to board');\n if(!html.includes('main-content')");fs.writeFileSync('scripts/verify-routes.mjs',s);
+s=fs.readFileSync('src/data/storyArchive.js','utf8').replace("'./leaders'","'./leaders.js'").replace("'./chapterArt'","'./chapterArt.js'");fs.writeFileSync('src/data/storyArchive.js',s);
+s=fs.readFileSync('src/pages/Drops.jsx','utf8');
+s=s.replace("  const visible=useMemo", "  function categoryUrl(value){const next=new URLSearchParams(params);if(value==='All objects')next.delete('collection');else next.set('collection',value);return `/drops${next.size?'?'+next.toString():''}`;}\n  const visible=useMemo");
+s=s.replace("to={c==='All objects'?'/drops':`/drops?collection=${encodeURIComponent(c)}`}","to={categoryUrl(c)}");
+s=s.replace("setParams(e.target.value==='All objects'?{}:{collection:e.target.value});","const next=new URLSearchParams(params);if(e.target.value==='All objects')next.delete('collection');else next.set('collection',e.target.value);setParams(next);");
+s=s.replace("if(sort==='Price: low to high') list.sort((a,b)=>Number(a.prices?.price)-Number(b.prices?.price));", "if(sort==='Price: low to high') list.sort((a,b)=>a.prices?.price==null?1:b.prices?.price==null?-1:Number(a.prices.price)-Number(b.prices.price));");
+s=s.replace("if(sort==='Price: high to low') list.sort((a,b)=>Number(b.prices?.price)-Number(a.prices?.price));", "if(sort==='Price: high to low') list.sort((a,b)=>a.prices?.price==null?1:b.prices?.price==null?-1:Number(b.prices.price)-Number(a.prices.price));");
+fs.writeFileSync('src/pages/Drops.jsx',s);
+s=fs.readFileSync('src/lib/storeApi.js','utf8').replace('const id=existing?.id||Date.now();','const id=existing?.id||crypto.randomUUID();');
+s=s.replace("artistName:(data.artists||[]).find(a=>a.id===input.artistId)?.name||''", "artistName:(data.artists||[]).find(a=>a.id===input.artistId)?.name||''");
+s=s.replace("sizes:input.sizes?input.sizes.split(',').map(s=>s.trim()).filter(Boolean):existing?.sizes||[]", "sizes:input.sizes!==undefined?input.sizes.split(',').map(s=>s.trim()).filter(Boolean):existing?.sizes||[]");
+s=s.replace("return inventory(data).map(p=>({...p,is_in_stock", "return inventory(data).map(p=>({...p,artistName:(data.artists||[]).find(a=>a.id===p.artistId)?.name||p.artistName||'',is_in_stock");
+fs.writeFileSync('src/lib/storeApi.js',s);
