@@ -1,11 +1,11 @@
 import { useEffect,useRef,useState } from 'react';
 import { clampView } from '@/lib/artworkView';
 export default function ArtworkViewer({src,alt}){
- const [view,setView]=useState({zoom:2,x:0,y:0}),[dragging,setDragging]=useState(false);
+ const [view,setView]=useState({zoom:1,x:0,y:0}),[dragging,setDragging]=useState(false);
  const viewport=useRef(null),artwork=useRef(null),drag=useRef(null),initialZoom=useRef(2);
  function imageLoaded(e){
    const image=e.currentTarget;
-   initialZoom.current=image.naturalWidth>image.naturalHeight?1.1:2;
+   initialZoom.current=window.innerWidth<=700?1:image.naturalWidth>image.naturalHeight?1.1:2;
    setView({zoom:initialZoom.current,x:0,y:0});
  }
  const [placement,setPlacement]=useState({width:0,artWidth:0,desktop:false});
@@ -21,7 +21,7 @@ export default function ArtworkViewer({src,alt}){
  const rightOffset=placement.desktop?Math.max(24,(placement.artWidth*view.zoom-placement.width)/2+24):0;
  function update(zoom,x=view.x,y=view.y){const box=viewport.current?.getBoundingClientRect();setView(clampView(zoom,x,y,box?.width||0,box?.height||0));}
  function zoom(value){update(value);}
- function reset(){setView({zoom:initialZoom.current,x:0,y:0});setDragging(false);drag.current=null;}
+ function reset(){const image=artwork.current?.querySelector('img');const zoom=window.innerWidth<=700?1:image?.naturalWidth>image?.naturalHeight?1.1:2;setView({zoom,x:0,y:0});setDragging(false);drag.current=null;}
  function down(e){if(view.zoom<=1||e.button!==0)return;e.currentTarget.setPointerCapture(e.pointerId);drag.current={id:e.pointerId,x:e.clientX,y:e.clientY,startX:view.x,startY:view.y};setDragging(true);}
  function move(e){if(!drag.current||drag.current.id!==e.pointerId)return;update(view.zoom,drag.current.startX+e.clientX-drag.current.x,drag.current.startY+e.clientY-drag.current.y);}
  function end(e){if(drag.current?.id!==e.pointerId)return;drag.current=null;setDragging(false);if(e.currentTarget.hasPointerCapture(e.pointerId))e.currentTarget.releasePointerCapture(e.pointerId);}
