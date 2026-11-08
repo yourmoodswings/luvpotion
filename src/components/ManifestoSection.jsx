@@ -104,7 +104,7 @@ const ManifestoSection = () => {
           </p>
           <div>
             <button className="mt-4 border border-[#FBEEC1] px-6 py-2 text-sm rounded-full hover:bg-[#FBEEC1] hover:text-black transition">
-              View More →
+              View More
             </button>
           </div>
         </motion.div>

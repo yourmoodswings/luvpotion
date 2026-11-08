@@ -128,22 +128,22 @@ const HeroSection = () => {
         <a href="#" className="flex items-center nav-hover gap-2 justify-start hover:underline">
           <FaTwitter className="text-xl" />
           <span>TWITTER</span>
-          <span className="text-xl ml-1">→</span>
+          <span className="text-xl ml-1"></span>
         </a>
         <a href="#" className="flex items-center gap-2 nav-hover  justify-start hover:underline">
           <FaInstagram className="text-xl" />
           <span>INSTAGRAM</span>
-          <span className="text-xl ml-1">→</span>
+          <span className="text-xl ml-1"></span>
         </a>
         <a href="#" className="flex items-center nav-hover  gap-2 justify-start hover:underline">
           <FaYoutube className="text-xl" />
           <span>YOUTUBE</span>
-          <span className="text-xl ml-1">→</span>
+          <span className="text-xl ml-1"></span>
         </a>
         <a href="#" className="flex items-center gap-2 nav-hover justify-start hover:underline">
           <SiTiktok className="text-xl" />
           <span>TIKTOK</span>
-          <span className="text-xl ml-1">→</span>
+          <span className="text-xl ml-1"></span>
         </a>
       </div>
     </section>

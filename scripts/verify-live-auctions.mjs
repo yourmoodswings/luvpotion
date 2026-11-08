@@ -1,0 +1,45 @@
+import assert from 'node:assert/strict';
+import {mkdtempSync,rmSync} from 'node:fs';
+import {tmpdir} from 'node:os';
+import path from 'node:path';
+import {createHmac,randomUUID} from 'node:crypto';
+import {createApp} from '../server/app.mjs';
+const dir=mkdtempSync(path.join(tmpdir(),'luvpotion-live-test-')),origin='http://localhost',password='admin-test-password-only',secret='sk_test_only',signing='whsec_test_only';
+const payments=new Map();let providerCalls=0;
+const fetcher=async(url,options)=>{if(url.endsWith('/initialize')){providerCalls++;const d=JSON.parse(options.body);payments.set(d.reference,{...d,status:'pending',domain:'test',customer:{email:d.email}});return {ok:true,json:async()=>({status:true,data:{authorization_url:'https://checkout.paystack.com/test'}})};}const ref=url.split('/').at(-1);return {ok:true,json:async()=>({status:true,data:payments.get(ref)})};};
+const app=createApp({dataDir:dir,password,origin,auctionOptions:{enabled:true,paystackKey:secret,webhookSecret:signing,fetcher}});await new Promise(r=>app.server.listen(0,'127.0.0.1',r));const base=`http://127.0.0.1:${app.server.address().port}`;
+async function request(p,{method='GET',data,cookie='',csrf='',headers={},raw}={}){const r=await fetch(base+p,{method,headers:{Origin:origin,Cookie:cookie,'Content-Type':'application/json','X-CSRF-Token':csrf,...headers},body:raw|| (data?JSON.stringify(data):undefined)});return {status:r.status,data:await r.json(),cookie:r.headers.get('set-cookie')?.split(';')[0]};}
+try{
+ const admin=await request('/api/admin/login',{method:'POST',data:{password}});const auth={cookie:admin.cookie,csrf:admin.data.csrf};
+ const product={name:'Actual flower vase',slug:'actual-vase',price:200000,stock:1,ready:true,sample:false,saleMode:'auction',photo:'/assets/shop/vase.svg',sizes:''};
+ await request('/api/admin/records/products/vase',{...auth,method:'PUT',data:{record:product}});await request('/api/admin/records/products/vase/publish',{...auth,method:'POST',data:{version:1}});
+ const lot={name:'Vase auction',productId:'vase',mode:'live',enabled:true,startsAt:new Date(Date.now()-10000).toISOString(),endsAt:new Date(Date.now()+3600000).toISOString(),increment:5000,terms:'Highest accepted bid at closing wins.',delivery:'Collection from studio, included.'};
+ await request('/api/admin/records/auctions/vase-lot',{...auth,method:'PUT',data:{record:lot}});assert.equal((await request('/api/admin/records/auctions/vase-lot/publish',{...auth,method:'POST',data:{version:1}})).status,200);
+ const register=async(email)=>request('/api/bidding/register',{method:'POST',data:{name:'Collector',email,phone:'08000000000',password:'collector-password-123'}});
+ const a=await register('a@example.com'),b=await register('b@example.com');assert.equal(a.status,200);assert.equal(b.status,200);assert.match(a.cookie,/lp_bidder=/);
+ const bid=(bidder,amount,id=randomUUID())=>request('/api/bidding/bid',{method:'POST',cookie:bidder.cookie,data:{lot:'vase-lot',amount,acceptTerms:true,requestId:id}});
+ assert.equal((await bid(a,200000)).status,403);
+ for(const bidder of [a,b])assert.equal((await request('/api/admin/bidders/'+bidder.data.user.id,{...auth,method:'PATCH',data:{status:'approved'}})).status,200);
+ const race=await Promise.all([bid(a,200000),bid(b,200000)]);assert.deepEqual(race.map(r=>r.status).sort(),[201,409]);
+ const first=race[0].status===201?a:b,second=first===a?b:a,id=randomUUID();assert.equal((await bid(second,205000,id)).status,201);assert.equal((await bid(second,205000,id)).status,200);
+ assert.equal((await bid(second,210000)).status,400);
+ assert.equal((await request('/api/admin/records/auctions/vase-lot/unpublish',{...auth,method:'POST',data:{version:2}})).status,409);
+ assert.equal((await request('/api/admin/records/products/vase',{...auth,method:'PUT',data:{version:2,record:product}})).status,409);
+ const publicLots=(await request('/api/auctions')).data;assert.equal(publicLots[0].minimumBid,210000);assert.equal(publicLots[0].bids.length,2);assert.ok(!JSON.stringify(publicLots).includes('@example.com'));
+ // Advance the persisted fixture's closing time, without a production mutation API.
+ const row=app.db.prepare("SELECT published FROM documents WHERE kind='auctions' AND id='vase-lot'").get();const closed={...JSON.parse(row.published),endsAt:new Date(Date.now()-1000).toISOString()};app.db.prepare("UPDATE documents SET published=? WHERE kind='auctions' AND id='vase-lot'").run(JSON.stringify(closed));
+ assert.equal((await bid(first,210000)).status,409);
+ const wins=(await request('/api/bidding/session',{cookie:second.cookie})).data.wins;assert.equal(wins[0].amount,205000);
+ assert.equal((await request('/api/bidding/pay',{method:'POST',cookie:first.cookie,data:{lot:'vase-lot'}})).status,404);
+ const checkout=await request('/api/bidding/pay',{method:'POST',cookie:second.cookie,data:{lot:'vase-lot'}});assert.equal(checkout.status,200);assert.equal(providerCalls,1);
+ await request('/api/bidding/pay',{method:'POST',cookie:second.cookie,data:{lot:'vase-lot'}});assert.equal(providerCalls,1);
+ const [reference,payment]=[...payments][0];payment.status='success';payment.amount='1';
+ assert.equal((await request('/api/bidding/verify',{method:'POST',cookie:second.cookie,data:{lot:'vase-lot'}})).status,409);
+ payment.amount='20500000';const event=JSON.stringify({event:'charge.success',data:{reference}}),t=String(Math.floor(Date.now()/1000));const signature=createHmac('sha512',signing).update(t+'.').update(event).digest('hex');
+ assert.equal((await request('/api/paystack/webhook',{method:'POST',raw:event,headers:{'paystack-signature':'t='+t+',v1=whk_test:bad'}})).status,401);
+ for(let n=0;n<2;n++)assert.equal((await request('/api/paystack/webhook',{method:'POST',raw:event,headers:{'paystack-signature':`t=${t},v1=whk_test:${signature}`}})).status,200);
+ assert.equal((await request('/api/bidding/session',{cookie:second.cookie})).data.wins[0].status,'paid');
+ assert.equal((await request('/api/content')).data.products.find(p=>p.id==='vase').stock,0);
+ assert.equal(providerCalls,1);
+ console.log('PASS: bidder registration/approval, concurrent bids, replay protection, minimums, locked terms/inventory, closing, private winners, winner-only Paystack checkout, reference reuse, amount mismatch rejection, signed webhook verification, duplicate settlement, sold inventory. Paystack mocked; no real charges.');
+}finally{await new Promise(r=>app.server.close(r));assert.equal(path.dirname(path.resolve(dir)),path.resolve(tmpdir()));assert.ok(path.basename(dir).startsWith('luvpotion-live-test-'));rmSync(dir,{recursive:true,force:true});}

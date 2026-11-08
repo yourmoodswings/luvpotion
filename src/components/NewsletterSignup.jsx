@@ -56,7 +56,7 @@ const NewsletterSignup = () => {
             type="submit"
             className="px-6 py-3 rounded-full font-semibold tracking-wide bg-neutral-900 text-[#FBEEC1] hover:bg-black transition"
           >
-            Get the Potion →
+            Get the Potion
           </button>
         </motion.form>
       </div>

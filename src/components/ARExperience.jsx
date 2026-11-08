@@ -85,7 +85,7 @@ const ARExperience = () => {
             transition={{ delay: 0.7 }}
             className="mt-8 px-6 py-3 bg-neutral-900 text-[#FBEEC1] font-semibold rounded-full hover:bg-black transition"
           >
-            Experience the Future →
+            Experience the Future
           </motion.button>
         </div>
       </div>

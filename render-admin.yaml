@@ -20,6 +20,12 @@ services:
         sync: false
       - key: ADMIN_PASSWORD
         sync: false
+      - key: LIVE_AUCTIONS_ENABLED
+        value: "false"
+      - key: PAYSTACK_SECRET_KEY
+        sync: false
+      - key: PAYSTACK_WEBHOOK_SECRET
+        sync: false
     disk:
       name: luvpotion-data
       mountPath: /var/data

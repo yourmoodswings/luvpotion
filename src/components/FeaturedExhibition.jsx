@@ -77,7 +77,7 @@ const FeaturedExhibition = () => {
           >
             <Link to="/exhibitions/heads-of-state">
               <button className="px-6 py-3 rounded-full border border-[#FBEEC1] text-[#FBEEC1] hover:bg-[#FBEEC1] hover:text-black transition font-semibold">
-                Explore the Timeline →
+                Explore the Timeline
               </button>
             </Link>
           </motion.div>
