@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: luvpotion
+    branch: codex/render-launch
+    runtime: static
+    buildCommand: npm ci --include=dev && npm run build
+    staticPublishPath: ./dist
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
