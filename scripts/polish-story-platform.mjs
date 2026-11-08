@@ -1,0 +1,12 @@
+import fs from 'node:fs';
+let s=fs.readFileSync('src/pages/HeadsOfState.jsx','utf8');
+s=s.replace("const chapter=storyChapters[selected];", "const chapter=storyChapters[selected];\n  const [portrait,setPortrait]=useState('');\n  useEffect(()=>{let active=true,url='';setPortrait('');loadChapterMedia(selected).then(m=>{if(active&&m.portrait){url=URL.createObjectURL(m.portrait.blob);setPortrait(url);}}).catch(()=>{});return()=>{active=false;if(url)URL.revokeObjectURL(url);};},[selected]);");
+s=s.replace('<h2>{chapter.name}</h2><span className="hos-period">','{portrait&&<img className="hos-board-preview-photo" src={portrait} alt={chapter.name}/>}<h2>{chapter.name}</h2><span className="hos-period">');
+s=s.replace("try{await ambient.current.play();", "try{film.current?.pause();narration.current?.pause();await ambient.current.play();");
+s=s.replace('<header className="hos-chapter-heading">','<header className="hos-chapter-heading">{media.portrait&&<img className="hos-chapter-portrait" src={media.portrait} alt={chapter.name}/>}');
+fs.writeFileSync('src/pages/HeadsOfState.jsx',s);
+s=fs.readFileSync('src/lib/storeApi.js','utf8');
+s=s.replace("const saleMode=input.saleMode||existing?.saleMode||'fixed';", "const saleMode=input.saleMode||existing?.saleMode||'fixed';\n if(!['fixed','auction'].includes(saleMode))throw new Error('Choose a supported sale format.');");
+s=s.replace("type:'simple',sample:false,pending:!input.ready", "type:'simple',sample:Boolean(existing?.sample&&input.photo?.startsWith('/assets/')),pending:!input.ready");
+s=s.replace("p.saleMode==='auction'&&!p.pending)","p.saleMode==='auction'&&!p.pending&&stockFor(p,data)>0)");
+fs.writeFileSync('src/lib/storeApi.js',s);
