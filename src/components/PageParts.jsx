@@ -1,3 +1,5 @@
+import {useContent} from '@/contexts/ContentContext';
+import {useLocation} from 'react-router-dom';
 import { Link } from 'react-router-dom';
-export function PageIntro({ eyebrow, title, children }) { return <header className="lp-intro"><span className="lp-eyebrow">{eyebrow}</span><h1>{title}</h1>{children && <p>{children}</p>}</header>; }
+export function PageIntro({ eyebrow, title, children }) { const location=useLocation(),page=useContent()?.pages?.find(p=>p.slug===location.pathname.slice(1)); return <header className="lp-intro"><span className="lp-eyebrow">{page?.eyebrow||eyebrow}</span><h1>{page?.title||title}</h1>{(page?.description||children) && <p>{page?.description||children}</p>}{page?.hero&&<img className="managed-hero" src={page.hero} alt=""/>}{page?.body&&<div style={{whiteSpace:"pre-line"}}>{page.body}</div>}</header>; }
 export function StatePanel({ title, children, retry }) { return <div className="lp-state" role="status"><span className="lp-eyebrow">LUVPOTION / COLLECT</span><h2>{title}</h2><p>{children}</p><div className="lp-actions">{retry && <button className="lp-button" onClick={retry}>Try again ↗</button>}<Link className="lp-link" to="/exhibitions">Explore the exhibitions ↗</Link></div></div>; }

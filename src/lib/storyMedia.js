@@ -1,3 +1,4 @@
+import {getSharedContent} from './sharedApi.js';
 // Large chapter media lives in IndexedDB, not the small localStorage inventory.
 const DB = 'luvpotion-story-media-v1';
 const kinds = { film:['video/mp4','video/webm'], narration:['audio/mpeg','audio/mp3','audio/wav','audio/x-wav','audio/ogg','audio/mp4'], captions:['text/vtt'], portrait:['image/jpeg','image/png','image/webp'] };
@@ -19,6 +20,7 @@ export async function saveChapterMedia(chapter,kind,file) {
   try {await new Promise((resolve,reject)=>{const tx=db.transaction('media','readwrite');tx.objectStore('media').put({blob:isVtt?new Blob([file],{type:'text/vtt'}):file,name:file.name},`${chapter}:${kind}`);tx.oncomplete=resolve;tx.onerror=()=>reject(new Error('Could not save media. Check available browser storage.'));tx.onabort=()=>reject(new Error('Media save was interrupted.'));});} finally {db.close();}
 }
 export async function loadChapterMedia(chapter) {
+ const shared=await getSharedContent();if(shared){const record=shared.chapters.find(c=>c.id===`chapter-${chapter}`)||{};return Object.fromEntries(Object.keys(kinds).filter(k=>record[k]).map(k=>[k,{url:record[k],name:record[k].split('/').at(-1)}]));}
   const db=await openDB();
   try {return await new Promise((resolve,reject)=>{const tx=db.transaction('media','readonly'),result={};for(const kind of Object.keys(kinds)){const req=tx.objectStore('media').get(`${chapter}:${kind}`);req.onsuccess=()=>{if(req.result)result[kind]=req.result;};}tx.oncomplete=()=>resolve(result);tx.onerror=()=>reject(new Error('Could not load chapter media.'));});}finally{db.close();}
 }

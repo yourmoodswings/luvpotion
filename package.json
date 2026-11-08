@@ -8,7 +8,11 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "dev:local": "node scripts/dev-local.mjs"
+    "dev:local": "node scripts/dev-local.mjs",
+    "start": "node server/app.mjs",
+    "dev:admin": "node --env-file=.env.admin server/app.mjs",
+    "test:admin": "node scripts/verify-admin.mjs",
+    "build:admin": "node scripts/build-admin.mjs"
   },
   "dependencies": {
     "@studio-freight/lenis": "^1.0.42",

@@ -1,3 +1,4 @@
+import {useContent} from '@/contexts/ContentContext';
 import ArtworkViewer from '@/components/ArtworkViewer';
 import { shortPassage } from '@/lib/artworkView';
 import { useEffect, useRef, useState } from 'react';
@@ -7,11 +8,11 @@ import { loadChapterMedia } from '@/lib/storyMedia';
 import { getProducts, listArtists, money } from '@/lib/storeApi';
 import './HeadsOfState.css';
 
-function Board({ enter }) {
+function Board({ enter, chapters:storyChapters }) {
   const [selected,setSelected]=useState(0),[query,setQuery]=useState('');
   const chapter=storyChapters[selected];
   const [portrait,setPortrait]=useState('');
-  useEffect(()=>{let active=true,url='';setPortrait('');loadChapterMedia(selected).then(m=>{if(active&&m.portrait){url=URL.createObjectURL(m.portrait.blob);setPortrait(url);}}).catch(()=>{});return()=>{active=false;if(url)URL.revokeObjectURL(url);};},[selected]);
+  useEffect(()=>{let active=true,url='';setPortrait('');loadChapterMedia(selected).then(m=>{if(active&&m.portrait){url=m.portrait.url||URL.createObjectURL(m.portrait.blob);setPortrait(url);}}).catch(()=>{});return()=>{active=false;if(url)URL.revokeObjectURL(url);};},[selected]);
   const matches=storyChapters.filter(c=>`${c.name} ${c.term}`.toLowerCase().includes(query.toLowerCase()));
   return <section className="hos-board-page">
     <header className="hos-board-heading"><div><span className="hos-label">LUVPOTION / AN INTERACTIVE EXHIBITION</span><h1>HEADS<br/>OF <em>STATE.</em></h1></div><div><span className="hos-stamp">THE POWER ARCHIVE</span><p>Seventeen chapters. A history of power.<br/>Follow a face. Open a story. Look again.</p><button className="hos-button" onClick={()=>enter(0)}>Begin the exhibition <span>↗</span></button></div></header>
@@ -26,8 +27,10 @@ function Board({ enter }) {
 }
 
 export default function HeadsOfState(){
+  const content=useContent();
+  const chapters=storyChapters.map(c=>({...c,...content?.chapters?.find(x=>x.id===c.id)}));
   const location=useLocation(),navigate=useNavigate();
-  const index=chapterFromHash(location.hash),chapter=storyChapters[index];
+  const index=chapterFromHash(location.hash),chapter=chapters[index];
   const [panel,setPanel]=useState('artwork'),[beat,setBeat]=useState(0),[motion,setMotion]=useState(false),[sound,setSound]=useState(false),[message,setMessage]=useState(''),[media,setMedia]=useState({}),[products,setProducts]=useState([]),[artists,setArtists]=useState([]),[full,setFull]=useState(false);
   const ambient=useRef(null),narration=useRef(null),film=useRef(null),stage=useRef(null),heading=useRef(null);
   useEffect(()=>{setMotion(!window.matchMedia('(prefers-reduced-motion: reduce)').matches);},[]);
@@ -37,7 +40,7 @@ export default function HeadsOfState(){
     ambient.current?.pause();narration.current?.pause();film.current?.pause();
     if(index<0)return;
     let cancelled=false;const urls=[];
-    loadChapterMedia(index).then(records=>{if(cancelled)return;const next={};for(const [kind,record]of Object.entries(records)){next[kind]=URL.createObjectURL(record.blob);urls.push(next[kind]);}setMedia(next);}).catch(()=>{if(!cancelled)setMessage('Attached chapter media could not be loaded. The artwork and written story remain available.');});
+    loadChapterMedia(index).then(records=>{if(cancelled)return;const next={};for(const [kind,record]of Object.entries(records)){next[kind]=record.url||URL.createObjectURL(record.blob);if(!record.url)urls.push(next[kind]);}setMedia(next);}).catch(()=>{if(!cancelled)setMessage('Attached chapter media could not be loaded. The artwork and written story remain available.');});
     heading.current?.focus({preventScroll:true});
     return()=>{cancelled=true;urls.forEach(url=>URL.revokeObjectURL(url));};
   },[index]);
@@ -48,7 +51,7 @@ export default function HeadsOfState(){
   useEffect(()=>{const sync=()=>setFull(!!document.fullscreenElement);document.addEventListener('fullscreenchange',sync);return()=>document.removeEventListener('fullscreenchange',sync);},[]);
   async function toggleSound(){if(sound){ambient.current?.pause();setSound(false);return;}try{film.current?.pause();narration.current?.pause();await ambient.current.play();setSound(true);setMessage('');}catch{setMessage('Ambient sound could not start. Try the sound control again.');}}
   async function toggleFull(){try{if(document.fullscreenElement)await document.exitFullscreen();else if(stage.current?.requestFullscreen)await stage.current.requestFullscreen();else setMessage('Fullscreen is unavailable in this browser.');}catch{setMessage('Fullscreen is unavailable in this browser.');}}
-  if(index<0)return <Board enter={enter}/>;
+  if(index<0)return <Board enter={enter} chapters={chapters}/>;
   const beats=storyBeats(chapter);
   const related=products.filter(p=>p.collection==='heads-of-state'&&(p.chapterIndex==null||p.chapterIndex===index));
   const credited=artists.filter(a=>a.chapters?.includes(index)||related.some(p=>p.artistId===a.id));

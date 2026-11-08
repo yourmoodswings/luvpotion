@@ -27,3 +27,6 @@ dist-ssr
 *.sw?
 
 outputs/
+
+.data/
+.env.admin

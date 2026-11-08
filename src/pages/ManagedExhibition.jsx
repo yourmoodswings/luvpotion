@@ -1,0 +1,5 @@
+import {useParams,Link} from 'react-router-dom';
+import {useContent} from '@/contexts/ContentContext';
+import {PageIntro,StatePanel} from '@/components/PageParts';
+import ProductCard from '@/components/ProductCard';
+export default function ManagedExhibition(){const {slug}=useParams(),content=useContent(),exhibition=content?.exhibitions.find(e=>e.slug===slug);if(!exhibition)return <StatePanel title="Exhibition not available.">Explore our published exhibitions.</StatePanel>;const pieces=content.products.filter(p=>p.collection===slug);return <><PageIntro eyebrow={exhibition.eyebrow} title={exhibition.name}>{exhibition.description}</PageIntro><section className="lp-exhibitions">{exhibition.hero&&<img className="managed-hero" src={exhibition.hero} alt={exhibition.name}/>}<p className="managed-statement">{exhibition.statement}</p><p>{exhibition.priceNote}</p><div className="lp-product-grid">{pieces.map(p=><ProductCard key={p.id} product={p}/>)}</div><Link className="lp-link" to={`/drops?exhibition=${slug}`}>Explore the collection ↗</Link></section></>;}
