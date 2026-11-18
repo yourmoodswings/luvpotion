@@ -3,7 +3,7 @@ import AuctionOperations from './AuctionOperations';
 import {useEffect,useState} from 'react';
 import {schemas} from './schema';
 import './admin.css';
-const label=s=>s.replace(/([A-Z])/g,' $1').replace(/^./,c=>c.toUpperCase());
+const label=s=>s==='ikaImage'?'VASE 1 image':s.replace(/([A-Z])/g,' $1').replace(/^./,c=>c.toUpperCase());
 export default function Admin(){
  const [csrf,setCsrf]=useState(''),[checking,setChecking]=useState(true),[password,setPassword]=useState(''),[section,setSection]=useState(()=>window.location.hash==='#payments'?'payments':'overview'),[records,setRecords]=useState([]),[selected,setSelected]=useState(null),[form,setForm]=useState({}),[overview,setOverview]=useState(null),[media,setMedia]=useState([]),[orders,setOrders]=useState([]),[busy,setBusy]=useState(false),[notice,setNotice]=useState(''),[relations,setRelations]=useState({});
  async function api(path,method='GET',data){const r=await fetch('/api/admin/'+path,{method,credentials:'same-origin',headers:{'Content-Type':'application/json','X-CSRF-Token':csrf},...(data?{body:JSON.stringify(data)}:{})});let result;try{result=await r.json();}catch{throw new Error('The admin server is not running at this address. Start the admin server or deploy the backend service.');}if(!r.ok){if(r.status===401)setCsrf('');throw new Error(result.error||'Request failed.');}return result;}
