@@ -78,3 +78,17 @@ Route checks include board/chapter deep links and invalid hashes. Store checks
 cover artist attribution, exhibition filters, fixed-price/auction separation,
 bid validation and deadlines, plus existing bag/order/stock behavior. These are
 code-level checks, not browser visual or media-playback verification.
+
+## November 18, 2026 — the artist's world as a guided experience
+
+The updated direction starts with the founding artist's practice: off-road truck rebuilding, film direction, painting, and handcrafted flower vases made from towels and cement. These facts come from the owner's account in this chat; no biography, artist photograph, vehicle brand, direct quotation, or invented film credit has been supplied.
+
+The local experience now has five connected scenes: invitation, maker, Heads of State, IKA V1, and collecting. Visitors can follow the sequence or choose a fragment. Workshop perspectives, leader-file reveals, and the cloth/form/memory sequence each change the content on screen. This is the first working interaction direction, not a claim that original films or an accurate 3D vessel scan have been produced. The IKA V1 vessel is explicitly an abstract graphic study until real media is supplied. Ali and Simbi appear as typography, not a reproduction of the actual painted banner.
+
+Sound is opt-in. Motion can be paused and follows reduced-motion preferences. Journey chapters have direct query URLs and a best-effort local visited trail; blocked browser storage does not prevent access. Heads of State retains all 17 deep links, existing media and artwork zoom rules. The shop and auction routes remain directly accessible.
+
+Admin Site content adds journey title, invitation copy, maker story, and IKA image. Existing databases do not need a destructive reseed. Uploaded studio imagery can replace the study through the IKA image field. New collection text and actual product properties continue to use the existing admin records.
+
+The proposed ownership-with-continued-display model is not an active sale condition. It needs explicit terms for title, custody, insurance, display duration, access, delivery and resale before it is sold or described as an available product. No invented scarcity, sale history, auction price, or provenance has been added.
+
+The next production media pass should use original workshop footage, a short artist interview, portrait chapter films/voiceovers, and actual IKA V1 photography. Keep the entire platform open to other artists and exhibitions; this founder-led entrance must not remove the broader directory or object library.
