@@ -10,7 +10,7 @@ export default function SiteLayout({children}) {
  const location=useLocation(),{cart}=useCart();
  const section=location.pathname.split('/')[1]||'home';
  const cinematic=location.pathname==='/exhibitions/heads-of-state'&&/^#chapter-\d+$/.test(location.hash);
- const dark=(section==='home'&&new URLSearchParams(location.search).has('scene'))||section==='discover'||section==='exhibitions'||section==='auctions'||location.pathname==='/artists/the-maker';
+ const dark=(section==='home'&&new URLSearchParams(location.search).has('scene'))||section==='discover'||(section==='exhibitions'&&location.pathname!=='/exhibitions')||section==='auctions'||location.pathname==='/artists/the-maker/practice';
  useEffect(()=>{setOpen(false);window.scrollTo({top:0,behavior:'instant'});const names={home:'Art, artists & stories',discover:'Discover the stories',drops:'The shop',exhibitions:'The exhibitions',artists:'The artists',auctions:'The auction room',cart:'Your bag',checkout:'Checkout',account:'Your collection',orders:'Your order',studio:'Local studio'};document.title=`${names[section]||'Explore'} — LUVPOTION`;},[location.pathname,section]);
  useEffect(()=>{const close=e=>{if(e.key==='Escape'&&open){setOpen(false);menu.current?.focus();}};window.addEventListener('keydown',close);return()=>window.removeEventListener('keydown',close);},[open]);
  return <div className={`lp-world page-${section} ${dark?'lp-dark':''} ${cinematic?'cinematic-shell':''}`}><a href="#main-content" className="gallery-skip">Skip to content</a>

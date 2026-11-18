@@ -1,4 +1,5 @@
 import {useContent} from '@/contexts/ContentContext';
+import {portfolioProjects,foundingArtist} from '@/data/portfolios';
 import ArtworkViewer from '@/components/ArtworkViewer';
 import { shortPassage } from '@/lib/artworkView';
 import { useEffect, useRef, useState } from 'react';
@@ -61,7 +62,9 @@ export default function HeadsOfState(){
   if(index<0)return <Board enter={enter} chapters={chapters} guided={guided} start={start} initial={lastFile}/>;
   const beats=storyBeats(chapter);
   const related=products.filter(p=>p.collection==='heads-of-state'&&(p.chapterIndex==null||p.chapterIndex===index));
-  const credited=artists.filter(a=>a.chapters?.includes(index)||related.some(p=>p.artistId===a.id));
+  const projectArtistId=portfolioProjects(content).find(p=>p.slug==='heads-of-state')?.artistId;
+  const credited=artists.filter(a=>a.id===projectArtistId||a.chapters?.includes(index)||related.some(p=>p.artistId===a.id));
+  if(!credited.length&&projectArtistId==='the-maker')credited.push(foundingArtist);
   return <section ref={stage} className={`hos-cinema ${motion?'motion-on':''}`}>
     <audio ref={ambient} src="/audio/ambient.mp3" loop preload="none"/>
     <div className="hos-cinema-controls"><button onClick={board}>Investigation board</button><span>HEADS OF STATE / FILE {chapter.number}</span><div><button onClick={toggleSound} aria-pressed={sound}>Sound {sound?'on':'off'}</button><button onClick={()=>setMotion(!motion)} aria-pressed={motion}>Motion {motion?'on':'off'}</button><button onClick={toggleFull}>{full?'Exit fullscreen':'Fullscreen'}</button></div></div>
