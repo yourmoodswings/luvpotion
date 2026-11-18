@@ -4,6 +4,6 @@ export const schemas={
  artists:{label:'Artists',fields:{name:'text',bio:'textarea',discipline:'text',photo:'image',chapters:'text'}},
  chapters:{label:'Story chapters',fields:{name:'text',term:'text',title:'text',chapterTitle:'text',quote:'textarea',narrative:'textarea',artwork:'image',portrait:'image',film:'video',narration:'audio',captions:'captions'}},
  exhibitions:{label:'Exhibitions',fields:{name:'text',slug:'text',eyebrow:'text',description:'textarea',hero:'image',statement:'textarea',priceNote:'text'}},
- settings:{label:'Site content',fields:{name:'text',homeTitle:'text',homeEmphasis:'text',homeIntro:'textarea',manifestoTitle:'text',manifesto:'textarea',footerLine:'text',footerEmphasis:'text',announcement:'text',contactEmail:'text',shopIntro:'textarea',journeyTitle:'text',journeyIntro:'textarea',makerStory:'textarea',ikaImage:'image'}},
+ settings:{label:'Site content',fields:{name:'text',brandTitle:'text',brandEmphasis:'text',brandIntro:'textarea',brandPurposeTitle:'text',brandPurpose:'textarea',homeTitle:'text',homeEmphasis:'text',homeIntro:'textarea',manifestoTitle:'text',manifesto:'textarea',footerLine:'text',footerEmphasis:'text',announcement:'text',contactEmail:'text',shopIntro:'textarea',journeyTitle:'text',journeyIntro:'textarea',makerStory:'textarea',ikaImage:'image'}},
  auctions:{label:'Auction lots',fields:{name:'text',productId:'text',startsAt:'datetime-local',endsAt:'datetime-local',increment:'number',enabled:'boolean',mode:['preview','live'],terms:'textarea',delivery:'textarea'}},
 };
