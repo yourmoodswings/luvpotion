@@ -18,3 +18,11 @@ export const materialSteps=[
 export function sceneIndex(id){return Math.max(0,journeyScenes.findIndex(s=>s.id===id));}
 export function readTrail(storage){try{const value=JSON.parse(storage?.getItem('luvpotion-journey-v1')||'[]');return Array.isArray(value)?value.filter(id=>journeyScenes.some(s=>s.id===id)):[];}catch{return [];}}
 export function addToTrail(trail,id){return journeyScenes.some(s=>s.id===id)?[...trail.filter(previous=>previous!==id),id]:trail;}
+
+export const mobileScenes={
+ threshold:{title:'Art you can step inside.',body:'Discover the people, memories, and objects behind the work.'},
+ maker:{title:'Meet the maker.',body:'Builder. Director. Artist. Explore the instincts that connect his work.'},
+ power:{title:'Open the archive.',body:'Choose a leader. Discover the story behind the portrait.'},
+ vessel:{title:'Memory, reshaped.',body:'From cloth and cement to IKA V1. Follow the making.'},
+ collect:{title:'Keep part of the story.',body:'Find a vessel, an original work, or something for every day.'}
+};

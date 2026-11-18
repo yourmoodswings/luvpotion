@@ -1,7 +1,8 @@
 import {useState} from 'react';
 import {materialSteps} from './journeyData';
-export default function VesselReveal({image=''}){
- const [step,setStep]=useState(0),[angle,setAngle]=useState(0);
+export default function VesselReveal({image='',step:controlledStep,onStepChange}){
+ const [localStep,setLocalStep]=useState(0),[angle,setAngle]=useState(0);
+ const step=controlledStep??localStep,setStep=onStepChange||setLocalStep;
  return <div className={`vessel-reveal vessel-phase-${step}`}>
   <div className="vessel-laboratory">
    <span className="scene-coordinate">IKA V1 / MATERIAL STUDY</span>
