@@ -19,3 +19,29 @@
 }
 @media(max-width:360px){.journey{padding-inline:16px}.journey-copy h1{font-size:30px!important}.journey-stage{gap:18px}.journey-mobile-toolbar select{font-size:10px!important}.journey-mobile-toolbar summary{font-size:10px}.archive-files{gap:8px}.archive-files img{height:105px}.fragment>span:last-child{font-size:8px}.memory-constellation{height:245px}.fragment-power img{height:145px}.mobile-app-nav{padding-inline:6px}.mobile-app-nav a{font-size:9px}}
 @media(max-width:750px){.vessel-experiment>.journey-primary,.discovery-result>.journey-primary{display:none}}
+/* The archive keeps its own visual language inside the app shell. */
+.hos-board-scroll{min-width:0;overflow:auto;overscroll-behavior-inline:contain}
+.hos-board-invitation{display:block;font-size:12px;color:#b4ad9b;margin-top:16px}
+.hos-guide-welcome{display:flex;align-items:center;gap:24px;padding:22px 5%;border-block:1px solid #c8955544;background:#25291e}
+.hos-guide-welcome p{max-width:540px;font-size:14px;line-height:1.65;margin:0}
+.hos-guide-welcome .hos-button{flex-shrink:0}
+.hos-guide-note{max-width:640px;border-left:2px solid #c89555;padding:4px 0 4px 16px;margin:24px 0;color:#d7cfba}
+.hos-guide-note p{font-size:14px;line-height:1.65;margin:8px 0}
+.hos-guide-note button{background:transparent;border:0;color:#e8dcc0;text-decoration:underline;min-height:44px;cursor:pointer}
+.hos-thread-next{border-top:1px solid #ffffff24;margin-top:32px;padding-top:24px;display:flex;flex-direction:column;align-items:start;gap:16px}
+.hos-thread-next p{font-size:17px;line-height:1.6;margin:0}.hos-thread-next p span{font-size:12px;color:#b4ad9b}
+@media(max-width:1100px){.hos-board-scroll .hos-board{width:900px;grid-template-columns:repeat(6,minmax(0,1fr));max-height:none;overflow:visible;gap:30px 16px;padding:38px 25px;min-height:590px}.hos-board-scroll .hos-threads{display:block}}
+@media(max-width:750px){
+ .lp-world .hos-board-page .hos-board-heading h1{font:700 clamp(64px,17vw,90px)/.88 Arial,sans-serif!important;letter-spacing:-4px!important}
+ .lp-world .hos-board-page .hos-board-heading h1 em{font-family:Georgia,serif!important;font-style:italic!important;font-weight:400!important}
+ .lp-world .hos-board-page .hos-dossier h2{font:32px/1.1 Georgia,serif!important;letter-spacing:-1px!important}
+ .hos-guide-welcome{flex-direction:column;align-items:start;gap:12px;padding:22px 5%}
+ .hos-guide-welcome .hos-button{width:100%;justify-content:center}
+ .hos-board-scroll{max-height:440px;border-bottom:1px solid #ffffff24}
+ .hos-board-scroll .hos-file{min-height:0;border-radius:0}
+ .hos-board-scroll .hos-file strong{font-size:12px}
+ .hos-dossier{position:relative;padding:22px 5%}.hos-dossier blockquote{font-size:21px}
+ .hos-guide-note{margin:18px 0}.hos-guide-note p{font-size:13px}
+ .hos-thread-next .hos-button{width:100%;justify-content:center;min-height:48px}
+ .hos-chapter-heading{scroll-margin-top:76px}
+}
