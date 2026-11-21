@@ -1,0 +1,34 @@
+/* Shared material, rhythm, and interaction across the public application. */
+.lp-world{--app-paper:#f3efe6;--app-ink:#242a24;--app-accent:#27574d;--app-line:#242a2426;font-family:Arial,Helvetica,sans-serif;background:var(--app-paper);color:var(--app-ink);-webkit-font-smoothing:antialiased}
+.lp-world :is(h1,h2,h3){text-wrap:balance}.lp-world p{text-wrap:pretty}.lp-world ::selection{background:#b8d7c7;color:#183c32}
+.lp-world .lp-route{animation:none;overflow:visible}.app-reading-progress{position:fixed;top:0;left:0;right:0;height:2px;background:#6a9d8e;transform-origin:left;z-index:120;pointer-events:none}
+.lp-world .lp-header{background:#f3efe6f2;color:var(--app-ink);border-bottom:1px solid var(--app-line);backdrop-filter:blur(18px)}
+.lp-world .gallery-logo{font-weight:750;letter-spacing:-1.4px}.lp-header nav a{position:relative;transition:color .2s}.lp-header nav a.active{color:var(--app-accent)}
+.lp-world :is(.ika-primary,.gallery-button,.lp-button){border-radius:30px;transition:background .25s,box-shadow .25s,transform .25s}.lp-world :is(.ika-primary,.gallery-button,.lp-button):active{transform:scale(.97)}
+.lp-world :is(a,button,input,select,textarea):focus-visible{outline:2px solid #418275;outline-offset:4px}
+.lp-world :is(.collection-toolbar input,.collection-toolbar select,.collection-sidebar select){border-radius:10px;background:#fff9;border-color:var(--app-line);min-height:46px}
+.lp-world :is(.project-index-toolbar button,.collection-sidebar nav button){transition:background .25s,color .25s}.lp-world .project-index-toolbar button[aria-pressed=true]{background:var(--app-ink);color:var(--app-paper);border-color:transparent}
+.lp-world .project-cover{border-radius:5px;overflow:hidden}.lp-world .project-enter{border-radius:25px;backdrop-filter:blur(12px)}
+.lp-world .lp-product-image{border-radius:5px;background:#e5e1d7;overflow:hidden}.lp-world .lp-product-image img{transition:transform .65s cubic-bezier(.22,1,.36,1)}
+.lp-world .object-badge{border-radius:20px;background:#f7f3e9e8;backdrop-filter:blur(10px);color:#344d42}.lp-world .lp-product-card h2{letter-spacing:-.025em!important}.lp-world .lp-product-meta{letter-spacing:.045em}
+.lp-world .collection-intro{background:var(--app-paper)}.lp-world .collection-feature{border-radius:5px;overflow:hidden}.lp-world .collection-disclosure{background:#e5e9df;color:#425744}
+.lp-world .portfolio-frontispiece{border-radius:5px;overflow:hidden}.lp-world .folio-end{background:#e6e6da}.lp-world .lp-footer{background:#222e28;color:#eeeadf}
+.lp-world .ika-brand-image{overflow:hidden}.ika-brand-image img{transition:transform 1.2s cubic-bezier(.22,1,.36,1)}
+.lp-world .ika-intro,.lp-world .ika-launch-end{background:var(--app-paper)}
+@media(hover:hover){.lp-product-card:hover .lp-product-image img{transform:scale(1.045)}.ika-brand-image:hover img{transform:scale(1.035)}.lp-world .ika-primary:hover{box-shadow:0 8px 25px #243d3522;transform:translateY(-2px)}}
+@media(min-width:751px){.lp-world .exhibition-index .project-grid:has(>.project-entry:only-child){grid-template-columns:1fr}.exhibition-index .project-entry:only-child .project-cover{aspect-ratio:1.9}.lp-world .portfolio-heading{padding-top:65px;padding-bottom:45px}}
+@media(max-width:750px){
+ .lp-world .lp-header{height:60px}.lp-world .gallery-logo{font-size:21px;letter-spacing:-1px}
+ .lp-world .mobile-app-nav{background:#f8f5eef5;border-top:1px solid #242a2417;backdrop-filter:blur(22px);box-shadow:0 -6px 30px #242a2406;padding-top:7px}
+ .lp-world .mobile-app-nav a{position:relative;isolation:isolate;background:none!important;gap:5px;min-height:54px;border-radius:16px;color:#73786e}.lp-world .mobile-app-nav a.active{color:#244e42}
+ .mobile-app-nav a>svg,.mobile-app-nav a>span{position:relative;z-index:1}.app-nav-indicator{position:absolute;inset:0 5px 2px;background:#e5ebe0;border-radius:15px;z-index:0}.lp-world .mobile-app-nav a>span{font-size:9px;letter-spacing:.02em}
+ .lp-world .portfolio-heading h1,.lp-world .collection-intro h1{font-size:clamp(37px,10vw,56px)!important;line-height:1.04!important;letter-spacing:-.045em!important}
+ .lp-world .collection-intro{padding-top:30px}.lp-world .collection-intro p{font-size:13px;line-height:1.7}.lp-world .story-shop-door{display:none}
+ .lp-world .project-caption{padding-bottom:15px;border-bottom:1px solid var(--app-line)}.lp-world .collection-disclosure{font-size:9px;line-height:1.6}
+ .lp-world .lp-product-card h2{font-size:17px!important;line-height:1.2!important}.lp-world .object-badge{font-size:8px;padding:7px 10px}.lp-world .collection-toolbar{gap:9px}
+ .lp-world .ika-brand-copy{padding-top:32px}.lp-world .ika-brand h1{font-size:clamp(43px,12vw,67px)!important;letter-spacing:-.055em!important}
+ .lp-world .ika-links{gap:12px}.lp-world .ika-secondary{min-height:44px;display:inline-flex;align-items:center}.lp-world .lp-footer{padding-bottom:100px}
+}
+@media(prefers-reduced-motion:reduce){.lp-world *, .lp-world *:before,.lp-world *:after{scroll-behavior:auto!important;transition-duration:0s!important;animation-duration:0s!important}.app-reading-progress{display:none}}
+@media(min-width:751px){.lp-world .lp-header{position:sticky;top:0;z-index:80}}
+.lp-world .auction-room{background:var(--app-paper);color:var(--app-ink)}.lp-world .auction-room :is(p,small,.auction-heading-note,.auction-toolbar>span){color:#62695e}.lp-world .auction-toolbar nav button{color:#5d665b;border-radius:25px}.lp-world .auction-toolbar nav button[aria-pressed=true]{background:#243d35;color:#f5f0e7}.lp-world .auction-heading h1{font-family:Arial,sans-serif!important;letter-spacing:-.045em!important}.lp-world .auction-room .lp-button{background:#243d35;color:#f5f0e7}.lp-world .auction-room .state-panel{border:1px solid var(--app-line);border-radius:12px;background:#fff5}
