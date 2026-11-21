@@ -32,3 +32,4 @@
 @media(prefers-reduced-motion:reduce){.lp-world *, .lp-world *:before,.lp-world *:after{scroll-behavior:auto!important;transition-duration:0s!important;animation-duration:0s!important}.app-reading-progress{display:none}}
 @media(min-width:751px){.lp-world .lp-header{position:sticky;top:0;z-index:80}}
 .lp-world .auction-room{background:var(--app-paper);color:var(--app-ink)}.lp-world .auction-room :is(p,small,.auction-heading-note,.auction-toolbar>span){color:#62695e}.lp-world .auction-toolbar nav button{color:#5d665b;border-radius:25px}.lp-world .auction-toolbar nav button[aria-pressed=true]{background:#243d35;color:#f5f0e7}.lp-world .auction-heading h1{font-family:Arial,sans-serif!important;letter-spacing:-.045em!important}.lp-world .auction-room .lp-button{background:#243d35;color:#f5f0e7}.lp-world .auction-room .state-panel{border:1px solid var(--app-line);border-radius:12px;background:#fff5}
+.lp-world .auction-room .lp-button{color:#f5f0e7!important}
