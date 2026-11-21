@@ -9,16 +9,11 @@ await build({stdin:{contents:"export {default as App} from './src/App.jsx'; expo
 const {App,CartProvider}=await import('../logs/route-check.mjs');
 for (const route of ['/','/discover?scene=collect','/?scene=maker','/?scene=power','/?scene=vessel','/?scene=collect','/artists/the-maker','/artists/the-maker/practice','/drops','/drops/test-object','/exhibitions','/exhibitions/metavase','/studio','/drops?collection=METAVASE','/exhibitions/heads-of-state','/exhibitions/heads-of-state?journey=guided','/exhibitions/heads-of-state?journey=guided#chapter-0','/exhibitions/heads-of-state#chapter-0','/exhibitions/heads-of-state#chapter-16','/exhibitions/heads-of-state#chapter-99','/artists','/artists/missing','/studio/artists','/studio/media?chapter=0','/drops?exhibition=heads-of-state','/cart','/checkout','/account','/orders/42','/auctions','/not-found']) {
  const html=renderToString(React.createElement(MemoryRouter,{initialEntries:[route]},React.createElement(CartProvider,null,React.createElement(App))));
- if(route==='/'&&(!html.includes('Art that stays')||!html.includes('FEATURED ON LUVPOTION')||html.includes('Guided LUVPOTION experience')))throw new Error('Platform homepage must introduce the brand before projects');
- if(route==='/'&&html.indexOf('brand-title')>html.indexOf('featured-title'))throw new Error('Brand introduction must precede exhibitions');
- if(route.includes('journey=guided')&&!html.includes(route.includes('#chapter')?'FOLLOWING THE THREAD':'OUR NEXT STOP'))throw new Error('Guided archive entry missing');
- if(route==='/?scene=vessel'&&!html.includes('Reveal the memory')&&!html.includes('Give it form'))throw new Error('Vessel interaction missing');
- if(route==='/artists/the-maker'&&(!html.includes('Selected projects')||!html.includes('VASE 1')||!html.includes('Heads of State')))throw new Error('Founding artist portfolio missing connected projects');
+ if(route==='/'&&(!html.includes('Culture you')||!html.includes('Enter METAVASE')))throw new Error('Brand and IKA launch missing');
+ if(route==='/exhibitions/metavase'&&(!html.includes('IKA')||!html.includes('ika-formation.mp4')))throw new Error('IKA exhibition missing');
+ if(!route.includes('/studio')&&html.includes('href="/exhibitions/heads-of-state'))throw new Error('Archived exhibition exposed');
  if(route==='/artists'&&!html.includes('ARTIST PORTFOLIO'))throw new Error('Artist tab must open the full portfolio');
  if(route==='/exhibitions'&&(!html.includes('project-cover')||!html.includes('Filter exhibitions by medium')))throw new Error('Gallery presentation missing');
- if(route==='/exhibitions/heads-of-state'&&!html.includes('THE INVESTIGATION BOARD'))throw new Error('Board not rendered');
- if(route.includes('#chapter-0')&&!html.includes('Abubakar Tafawa Balewa'))throw new Error('Chapter deep link failed');
- if(route.includes('#chapter-99')&&!html.includes('THE INVESTIGATION BOARD'))throw new Error('Invalid chapter must fall back to board');
  if(production&&html.includes('href="/studio'))throw new Error('Public studio link exposed');
  if(production&&route.startsWith('/studio')&&!html.includes('A little off the beaten path.'))throw new Error('Public studio route exposed');
  if(!html.includes('main-content')||!html.includes('LUVPOTION')) throw new Error(`Missing shared shell: ${route}`);

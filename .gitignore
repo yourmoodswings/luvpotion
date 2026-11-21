@@ -30,3 +30,6 @@ outputs/
 
 .data/
 .env.admin
+
+# Local source-deck review artifacts
+tmp/
