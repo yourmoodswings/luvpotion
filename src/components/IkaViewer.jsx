@@ -12,7 +12,7 @@ export default function IkaViewer(){
    <img src={ikaImages[view].src} alt={ikaImages[view].alt} draggable="false" style={{transform:`translate(${pan.x}px,${pan.y}px) scale(${zoom})`}}/>
    <span className="ika-view-count">0{view+1} / 0{ikaImages.length}</span>
   </div>
-  <div className="ika-view-tools"><div>{ikaImages.map((im,i)=><button key={im.src} onClick={()=>choose(i)} aria-pressed={view===i}>{im.label}</button>)}</div><label>Zoom <input aria-label="Zoom vase photograph" type="range" min="1" max="3" step=".1" value={zoom} onChange={e=>{setZoom(Number(e.target.value));setPan({x:0,y:0});}}/></label><button onClick={()=>{setZoom(1);setPan({x:0,y:0});}}>Reset photograph</button></div>
-  <p className="ika-view-note">Photographs from the artist’s presentation. Swipe between views. Zoom, then drag or use arrow keys to inspect the painted surface.</p>
+  <div className="ika-view-tools"><div className="ika-view-thumbnails" role="group" aria-label="Photographed views">{ikaImages.map((im,i)=><button key={im.src} onClick={()=>choose(i)} aria-pressed={view===i} aria-label={im.label}><img src={im.src} alt="" loading="lazy"/><span>{im.label}</span></button>)}</div><label>Zoom <output>{Math.round(zoom*100)}%</output><input aria-label="Zoom vase photograph" type="range" min="1" max="3" step=".1" value={zoom} onChange={e=>{setZoom(Number(e.target.value));setPan({x:0,y:0});}}/></label><button onClick={()=>{setZoom(1);setPan({x:0,y:0});}}>Reset photograph</button></div>
+  <p className="ika-view-note">Swipe to change views. Zoom and drag to look closer. Original photographs from the artist’s presentation.</p>
  </div>;
 }

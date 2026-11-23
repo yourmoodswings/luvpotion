@@ -31,6 +31,38 @@
 }
 @media(prefers-reduced-motion:reduce){.lp-world *, .lp-world *:before,.lp-world *:after{scroll-behavior:auto!important;transition-duration:0s!important;animation-duration:0s!important}.app-reading-progress{display:none}}
 @media(min-width:751px){.lp-world .lp-header{position:sticky;top:0;z-index:80}}
+.explore-paths{padding:80px 6%;border-bottom:1px solid var(--app-line)}
+.explore-paths-heading{display:flex;justify-content:space-between;align-items:center;gap:24px;margin-bottom:30px}
+.lp-world .explore-paths h2{font-size:clamp(30px,3.4vw,48px)!important;margin:0!important}
+.explore-paths-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}
+.explore-paths-grid>a{color:inherit;text-decoration:none;min-width:0}
+.explore-path-image{position:relative;aspect-ratio:4/3;overflow:hidden;border-radius:8px;background:#ded8cf}
+.explore-path-image img{width:100%;height:100%;object-fit:cover;transition:transform .6s ease}
+.explore-paths-grid>a:last-child img{object-fit:contain}
+.explore-path-image span{position:absolute;bottom:15px;left:15px;background:#f6f1e9f0;color:#243d35;padding:10px 15px;border-radius:24px;font-size:11px}
+.explore-paths h3{font:500 24px/1.2 Arial;letter-spacing:-.7px;margin:20px 0 8px}
+.explore-paths p{font-size:13px;margin:0}
+.ika-view-tools .ika-view-thumbnails{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;width:100%;flex-basis:100%}
+.ika-view-tools .ika-view-thumbnails button{padding:5px;border-radius:8px;border:1px solid transparent;background:transparent;color:#34443b;min-width:0}
+.ika-view-tools .ika-view-thumbnails button[aria-pressed=true]{border-color:#315849;background:#e3e9df;color:#243d35}
+.ika-view-thumbnails img{display:block;width:100%;height:80px;object-fit:contain;border-radius:4px;background:#e9ddd2}
+.ika-view-thumbnails span{display:block;padding:8px 2px;font-size:10px}
+.ika-view-tools{flex-wrap:wrap;align-items:center}
+.ika-view-tools label{display:flex;align-items:center;gap:12px;flex:1;font-size:11px}
+.ika-view-tools output{font-variant-numeric:tabular-nums;min-width:34px}
+.ika-view-tools input{flex:1;accent-color:#315849;min-height:44px;max-width:220px}
+.lp-world .ika-view-note{font-size:11px;line-height:1.65;color:#62695e}
+.lp-world .ika-launch-end{color:#243d35}
+@media(hover:hover){.explore-paths-grid>a:hover img{transform:scale(1.035)}}
+@media(max-width:750px){
+ .explore-paths{padding:40px 22px}.explore-paths-heading{display:block;margin-bottom:24px}.explore-paths-heading .ika-kicker{margin-bottom:16px}
+ .explore-paths-grid{grid-template-columns:1fr;gap:24px}.explore-paths-grid>a{display:grid;grid-template-columns:110px 1fr;gap:0 18px;align-content:center}
+ .explore-path-image{grid-row:1/3;aspect-ratio:1}.explore-path-image span{display:none}.explore-paths h3{font-size:21px;margin:12px 0 8px}.explore-paths p{font-size:12px;line-height:1.6}
+ .ika-view-thumbnails img{height:64px}.ika-view-tools .ika-view-thumbnails{gap:5px}.ika-view-tools>button{min-height:44px}
+ .lp-world .collection-toolbar{display:grid;grid-template-columns:1fr}.lp-world .collection-toolbar input,.lp-world .collection-toolbar select{width:100%;font-size:16px}
+ .lp-world .collection-toolbar>label{min-width:0}.lp-world .lp-detail-copy details summary{min-height:52px;display:flex;align-items:center}
+ .lp-world .ika-launch-end{padding:48px 22px}.lp-world .ika-launch-end h2{font-size:34px!important}
+}
 .lp-world .auction-room{background:var(--app-paper);color:var(--app-ink)}.lp-world .auction-room :is(p,small,.auction-heading-note,.auction-toolbar>span){color:#62695e}.lp-world .auction-toolbar nav button{color:#5d665b;border-radius:25px}.lp-world .auction-toolbar nav button[aria-pressed=true]{background:#243d35;color:#f5f0e7}.lp-world .auction-heading h1{font-family:Arial,sans-serif!important;letter-spacing:-.045em!important}.lp-world .auction-room .lp-button{background:#243d35;color:#f5f0e7}.lp-world .auction-room .state-panel{border:1px solid var(--app-line);border-radius:12px;background:#fff5}
 .lp-world .auction-room .lp-button{color:#f5f0e7!important}
 .lp-world :is(.ika-brand-copy,.ika-intro,.ika-material,.ika-surface,.ika-launch-end,.portfolio-heading,.collection-intro){background-image:url('/assets/ika/paper-grain.svg')}
