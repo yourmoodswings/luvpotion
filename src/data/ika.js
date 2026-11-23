@@ -1,6 +1,8 @@
 export const ikaImages = [
   {src:'/assets/ika/front.webp',alt:'IKA painted concrete vase, front view',label:'Front'},
   {src:'/assets/ika/side.webp',alt:'IKA painted concrete vase, alternate view',label:'Side'},
+  {src:'/assets/ika/surface-folds.webp',alt:'IKA close-up showing the folded rim, textured blue surface and painted courtyard',label:'Surface'},
+  {src:'/assets/ika/paint-detail.webp',alt:'IKA painted reading scene with raised brush marks and uneven concrete texture',label:'Paint detail'},
 ];
 export const ikaDescription='An upcycled concrete flower vase by Anietie James Ekiko. A sculptural surface carries a painted story of Nigerian life, culture and memory.';
 export function launchProducts(products){
