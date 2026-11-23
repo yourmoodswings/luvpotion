@@ -1,0 +1,53 @@
+/* Visual identity drawn from the artist's supplied IKA presentation. */
+.lp-world{--app-paper:#f9ead6;--app-ink:#3b210b;--app-accent:#a74607;--app-line:#71451f44;--document-paper:url('/assets/ika/document-paper.webp');background:#f9ead6 var(--document-paper);color:var(--app-ink)}
+.lp-world :is(.ika-launch,.ika-exhibition,.exhibition-index,.creative-portfolio,.collection-layout,.collection-intro,.portfolio-heading,.ika-brand-copy,.explore-paths,.ika-material,.ika-surface,.ika-inspect,.ika-launch-end,.ika-artist-intro,.lp-product-detail,.auction-room,.ika-intro,.portfolio-section,.folio-end){background-color:#f9ead6;background-image:var(--document-paper);background-size:700px 940px;color:#3b210b}
+.lp-world :is(h1,h2,h3,h4),.lp-world .ika-launch :is(h1,h2),.lp-world .ika-exhibition :is(h1,h2),.lp-world .auction-room h1,.lp-world .collection-intro h1,.lp-world .portfolio-heading h1{font-family:Georgia,'Times New Roman',serif!important;font-weight:700!important;letter-spacing:-.035em!important;color:#3b210b}
+.lp-world :is(h1,h2,h3) em{font-family:inherit!important;font-style:normal;font-weight:inherit}
+.lp-world .ika-exhibition .ika-journey h1,.lp-world .ika-exhibition .ika-journey h1 em{font-family:Georgia,'Times New Roman',serif!important;font-weight:700!important;letter-spacing:-.035em!important;font-style:normal}
+.lp-world p,.lp-world .ika-launch p,.lp-world .ika-exhibition p{font-family:Georgia,'Times New Roman',serif;font-size:17px;line-height:1.55;color:#4c321d}
+.lp-world :is(.lp-eyebrow,.ika-kicker,.folio-label,.document-overline){color:#aa470a;font-family:Arial,sans-serif;font-weight:700;letter-spacing:.16em}
+.lp-world .lp-header,.lp-world .mobile-app-nav{background:#faedddeF;color:#3b210b;border-color:#71451f33}
+.lp-world .lp-header nav a.active,.lp-world .mobile-app-nav a.active{color:#8b3e10}
+.lp-world .app-nav-indicator{background:#ead8bd;border-radius:8px}.lp-world .app-reading-progress{background:#a54d13}
+.lp-world :is(.ika-primary,.lp-button,.gallery-button){background:#45270e;color:#fff2df!important;border-color:#45270e;border-radius:4px}
+.lp-world .ika-secondary{color:#45270e!important;border-color:#805a37;border-radius:4px;background:transparent}
+.lp-world :is(.ika-primary,.lp-button):hover{background:#8c420e;border-color:#8c420e}
+.lp-world .lp-footer,.lp-world .ika-lived-in{background:#35200f;color:#fbead1}.lp-world .lp-footer p,.lp-world .ika-lived-in :is(h2,p){color:#fbead1!important}
+.lp-world .lp-footer p em{font-family:Georgia,serif}.lp-world .lp-footer nav a{color:#fbead1}
+.lp-world .collection-disclosure,.lp-world .object-badge{background:#ecd8bc;color:#663a13}
+.lp-world .project-index-toolbar button[aria-pressed=true],.lp-world .auction-toolbar nav button[aria-pressed=true]{background:#45270e;color:#fff2df}
+.lp-world .project-cover,.lp-world .collection-feature,.lp-world .explore-path-image,.lp-world .lp-product-image{border-radius:2px}
+.lp-world :is(a,button,input,select):focus-visible{outline-color:#a54d13}
+.document-introduction{display:grid;grid-template-columns:1fr 1fr;gap:42px;padding:60px 5%;background:#f9ead6 var(--document-paper);background-size:700px 940px;border-block:1px solid #71451f55}
+.document-introduction-copy{padding-right:38px;border-right:1px solid #704921;min-width:0}
+.document-overline{display:block;font-size:10px;margin-bottom:24px}
+.document-wordmark{width:250px;max-width:65%;display:block;mix-blend-mode:darken}
+.lp-world .document-original-title{margin:10px 0 20px!important;line-height:1!important}
+.document-original-title img{display:block;width:100%;max-width:645px;mix-blend-mode:darken}
+.document-original-title span{display:none}
+.lp-world .document-introduction p{max-width:none;font-size:18px;line-height:1.45;margin:16px 0}
+.document-material{border-top:1px solid #805a37;margin-top:22px;padding-top:16px}
+.lp-world .document-material h3{text-transform:uppercase;color:#a24c0d;font-size:25px;letter-spacing:0!important;margin:0}
+.document-credit{border-top:1px solid #805a37;padding-top:15px}
+.document-memory-images{display:flex;flex-direction:column;justify-content:center;min-width:0;gap:3px}
+.document-memory-images img{width:100%;display:block;object-fit:contain}
+.document-memory-images>span{font:9px/1.5 Arial;letter-spacing:.18em;color:#7f4d23;margin-top:14px}
+.ika-brand-image .campaign-ika-mark{display:block;width:210px;height:auto;mix-blend-mode:darken;object-fit:contain}
+.lp-world .ika-brand-image>span{background:#faeddbed;color:#45270e;text-shadow:none;inset:auto 24px 24px;padding:20px;letter-spacing:.15em}
+.lp-world .ika-photo-story .ika-journey-stage{background:#f9ead6 var(--document-paper);background-size:700px 940px}
+.lp-world .ika-photo-story h1{font-size:clamp(36px,4.5vw,64px)!important}.lp-world .ika-scene-word{color:#7c4815;opacity:.08}
+.lp-world .ika-journey-caption p{color:#4c321d}.lp-world .ika-journey-bottom button[aria-current=step]{color:#9a420a}
+.lp-world .ika-journey-next,.lp-world .ika-journey-cta{border-radius:4px;color:#45270e;border-color:#805a37}
+.lp-world .ika-view-tools .ika-view-thumbnails button[aria-pressed=true]{background:#ecd8bc;border-color:#855127;color:#45270e}.lp-world .ika-view-tools input{accent-color:#8b471c}
+#ika-story{scroll-margin-top:76px}.lp-world .practice-notebook{background:#eedcc0;border-color:#805a3755}
+@media(max-width:750px){
+ .document-introduction{padding:35px 22px;grid-template-columns:1fr;gap:24px}.document-introduction-copy{padding-right:0;border:0}.document-wordmark{width:190px}
+ .lp-world .document-introduction p{font-size:16px;line-height:1.5}.lp-world .document-material h3{font-size:22px}.document-original-title img{display:none}.document-original-title span{display:block;font-size:25px;line-height:1.1}
+ .document-memory-images{gap:5px}.document-memory-images img{max-height:380px}.document-overline{font-size:9px}
+ .lp-world .ika-brand h1{font-size:clamp(42px,11vw,60px)!important;letter-spacing:-.045em!important}
+ .lp-world .explore-paths h3{font-size:21px}.lp-world .explore-paths p{font-size:13px;line-height:1.45}
+ .lp-world .collection-intro h1,.lp-world .portfolio-heading h1{font-size:clamp(34px,9vw,52px)!important}
+ .lp-world .ika-photo-story h1{font-size:29px!important}.lp-world .ika-journey-caption p{font-size:13px!important}
+ .ika-brand-image .campaign-ika-mark{width:160px}.lp-world .ika-brand-image>span{padding:15px;left:18px;right:18px;bottom:18px}
+ #ika-story{scroll-margin-top:0}
+}
